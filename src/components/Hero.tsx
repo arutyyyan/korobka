@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-ai.jpg";
+import logoBox from "@/assets/logo-box.png";
 const Hero = () => {
   return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -19,9 +20,12 @@ const Hero = () => {
           </div>
 
           {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Все ИИ-курсы в одной{" "}
-            <span className="gradient-text">Коробке</span>
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight flex items-center justify-center gap-3 md:gap-4 flex-wrap">
+            <span>Все ИИ-курсы в одной</span>{" "}
+            <span className="gradient-text inline-flex items-center gap-2 md:gap-3">
+              Коробке
+              <img src={logoBox} alt="Коробка" className="w-12 h-12 md:w-16 md:h-16 inline-block" />
+            </span>
           </h1>
 
           {/* Subheading */}
