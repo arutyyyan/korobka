@@ -9,7 +9,7 @@ export function getBotUrl(): string {
   const baseUrl = "https://t.me/korobka_align_bot";
   
   if (typeof window === "undefined") {
-    return baseUrl;
+    return `${baseUrl}?start=landing`;
   }
   
   const urlParams = new URLSearchParams(window.location.search);
@@ -21,5 +21,5 @@ export function getBotUrl(): string {
     return `${baseUrl}?start=${utmParams[0]}`;
   }
   
-  return baseUrl;
+  return `${baseUrl}?start=landing`;
 }
