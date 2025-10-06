@@ -1,0 +1,61 @@
+import { Button } from "@/components/ui/button";
+import heroImage from "@/assets/hero-ai.jpg";
+
+const Hero = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 z-0 opacity-20"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
+
+      {/* Content */}
+      <div className="container relative z-10 mx-auto px-4 py-20 text-center">
+        <div className="mx-auto max-w-4xl space-y-8">
+          {/* Badge */}
+          <div className="inline-flex items-center rounded-full border border-border/50 bg-card/50 backdrop-blur-sm px-4 py-2 text-sm">
+            <span className="gradient-text font-semibold">Уже первые ученики проходят обучение и делятся результатами</span>
+          </div>
+
+          {/* Main Heading */}
+          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+            Все ИИ-курсы в одной{" "}
+            <span className="gradient-text">Коробке</span>
+          </h1>
+
+          {/* Subheading */}
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            ChatGPT, ИИ-фотосессии, видео-генерация, автоматизация и монетизация — всё, что нужно, чтобы зарабатывать и оставаться востребованным в эпоху ИИ в одной Telegram-подписке.
+          </p>
+
+          {/* CTA */}
+          <div className="flex flex-col items-center gap-4 pt-4">
+            <Button 
+              size="lg" 
+              variant="hero" 
+              className="text-lg px-8 py-6 h-auto"
+              onClick={() => window.open('https://tribute.to/korobka', '_blank')}
+            >
+              🎁 Получить доступ за 20€/мес
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              Один Telegram-доступ. Десятки практических курсов. Новые уроки каждую неделю.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Decorative Elements */}
+      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000" />
+    </section>
+  );
+};
+
+export default Hero;
