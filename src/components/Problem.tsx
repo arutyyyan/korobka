@@ -1,6 +1,5 @@
 const Problem = () => {
-  return (
-    <section className="py-20 px-4">
+  return <section className="py-20 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="glass-card rounded-2xl p-8 md:p-12 space-y-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
@@ -13,7 +12,7 @@ const Problem = () => {
 
           <div className="space-y-4 mb-8">
             <p className="text-lg">
-              Пока ты просто <span className="text-destructive font-semibold">смотришь видео про ИИ</span>, другие:
+              Пока ты просто <span className="font-semibold text-red-400">смотришь видео про ИИ</span>, другие:
             </p>
             
             <ul className="space-y-3 pl-6">
@@ -55,8 +54,6 @@ const Problem = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Problem;
