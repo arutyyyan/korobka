@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { getBotUrl } from "@/lib/utils";
 
 const Pricing = () => {
   return (
@@ -92,7 +93,7 @@ const Pricing = () => {
             size="lg" 
             variant="hero" 
             className="text-sm sm:text-base md:text-lg px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto"
-            onClick={() => window.open('https://tribute.to/korobka', '_blank')}
+            onClick={() => window.open(getBotUrl(), '_blank')}
           >
             💡 Начать за 20€/мес
           </Button>

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { getBotUrl } from "@/lib/utils";
 
 const FreeLesson = () => {
   return (
@@ -28,7 +29,7 @@ const FreeLesson = () => {
               size="lg" 
               variant="hero" 
               className="text-xs sm:text-base md:text-lg px-4 py-3 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto whitespace-normal leading-tight sm:leading-normal"
-              onClick={() => window.open('https://tribute.to/korobka', '_blank')}
+              onClick={() => window.open(getBotUrl(), '_blank')}
             >
               🚀 Продолжить обучение в Коробке
             </Button>

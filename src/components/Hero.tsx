@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-ai.jpg";
 import logoBox from "@/assets/logo-box.png";
+import { getBotUrl } from "@/lib/utils";
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -46,7 +47,7 @@ const Hero = () => {
               size="lg"
               variant="hero"
               className="text-sm sm:text-base md:text-lg px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto"
-              onClick={() => window.open("https://tribute.to/korobka", "_blank")}
+              onClick={() => window.open(getBotUrl(), "_blank")}
             >
               🎁 Получить доступ за 20€/мес
             </Button>
