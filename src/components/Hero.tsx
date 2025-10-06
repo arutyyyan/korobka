@@ -30,7 +30,7 @@ const Hero = () => {
             <span>Все ИИ-курсы в одной</span>{" "}
             <span className="gradient-text inline-flex items-center gap-2 md:gap-3">
               Коробке
-              <img src={logoBox} alt="Коробка" className="pt-2 w-12 h-12 md:w-16 md:h-16 inline-block" />
+              <img src={logoBox} alt="Коробка" className=" w-12 h-12 md:w-16 md:h-16 inline-block" />
             </span>
           </h1>
 
