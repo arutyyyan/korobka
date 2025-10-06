@@ -1,18 +1,13 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-ai.jpg";
-
 const Hero = () => {
-  return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+  return <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
-      <div 
-        className="absolute inset-0 z-0 opacity-20"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      />
+      <div className="absolute inset-0 z-0 opacity-20" style={{
+      backgroundImage: `url(${heroImage})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center'
+    }} />
       <div className="absolute inset-0 z-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
 
       {/* Content */}
@@ -30,18 +25,11 @@ const Hero = () => {
           </h1>
 
           {/* Subheading */}
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            ChatGPT, ИИ-фотосессии, видео-генерация, автоматизация и монетизация — всё, что нужно, чтобы зарабатывать и оставаться востребованным в эпоху ИИ в одной Telegram-подписке.
-          </p>
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">ChatGPT, ИИ-фотосессии, видео-генерация, автоматизация и монетизация— всё, что нужно, чтобы зарабатывать и оставаться востребованным в эпоху ИИ в одной Telegram-подписке.</p>
 
           {/* CTA */}
           <div className="flex flex-col items-center gap-4 pt-4">
-            <Button 
-              size="lg" 
-              variant="hero" 
-              className="text-lg px-8 py-6 h-auto"
-              onClick={() => window.open('https://tribute.to/korobka', '_blank')}
-            >
+            <Button size="lg" variant="hero" className="text-lg px-8 py-6 h-auto" onClick={() => window.open('https://tribute.to/korobka', '_blank')}>
               🎁 Получить доступ за 20€/мес
             </Button>
             <p className="text-sm text-muted-foreground">
@@ -54,8 +42,6 @@ const Hero = () => {
       {/* Decorative Elements */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000" />
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
