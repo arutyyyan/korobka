@@ -17,19 +17,19 @@ const Problem = () => {
             
             <ul className="space-y-3 pl-6">
               <li className="flex items-start gap-3">
-                <span className="text-primary text-xl">•</span>
+                <span className="text-primary text-lg">•</span>
                 <span>Создают сайты за 20 минут вместо недель разработки</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-primary text-xl">•</span>
+                <span className="text-primary text-lg">•</span>
                 <span>Генерируют месячный контент за один вечер</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-primary text-xl">•</span>
+                <span className="text-primary text-lg">•</span>
                 <span>Автоматизируют продажи через Telegram-ботов</span>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-primary text-xl">•</span>
+                <span className="text-primary text-lg">•</span>
                 <span>Делают видео без камеры и монтажера</span>
               </li>
             </ul>
