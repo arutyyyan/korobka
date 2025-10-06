@@ -29,7 +29,7 @@ const Hero = () => {
 
           {/* CTA */}
           <div className="flex flex-col items-center gap-4 pt-4">
-            <Button size="lg" variant="hero" className="text-lg px-8 py-6 h-auto" onClick={() => window.open('https://tribute.to/korobka', '_blank')}>
+            <Button size="lg" variant="hero" className="text-sm sm:text-base md:text-lg px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto" onClick={() => window.open('https://tribute.to/korobka', '_blank')}>
               🎁 Получить доступ за 20€/мес
             </Button>
             <p className="text-sm text-muted-foreground">
