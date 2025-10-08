@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -12,20 +12,45 @@
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-      (function(m,e,t,r,i,k,a){
-          m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-          m[i].l=1*new Date();
-          for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-          k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
-      })(window, document,'script','https://mc.yandex.ru/metrika/tag.js', 'ym');
+      // Проверяем, что мы в продакшене (не на localhost)
+      if (
+        window.location.hostname !== "localhost" &&
+        window.location.hostname !== "127.0.0.1" &&
+        !window.location.hostname.startsWith("192.168.")
+      ) {
+        (function (m, e, t, r, i, k, a) {
+          m[i] =
+            m[i] ||
+            function () {
+              (m[i].a = m[i].a || []).push(arguments);
+            };
+          m[i].l = 1 * new Date();
+          for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === r) {
+              return;
+            }
+          }
+          (k = e.createElement(t)),
+            (a = e.getElementsByTagName(t)[0]),
+            (k.async = 1),
+            (k.src = r),
+            a.parentNode.insertBefore(k, a);
+        })(
+          window,
+          document,
+          "script",
+          "https://mc.yandex.ru/metrika/tag.js",
+          "ym"
+        );
 
-      ym(104427792, 'init', {
+        ym(104427792, "init", {
           defer: true,
-          clickmap:true,
-          trackLinks:true,
-          accurateTrackBounce:true,
-          webvisor:true
-      });
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true,
+        });
+      }
     </script>
     <!-- /Yandex.Metrika counter -->
 
@@ -41,8 +66,14 @@
       name="twitter:image"
       content="https://storage.googleapis.com/gpt-engineer-file-uploads/uJKZlUsKWbfa7MgrCrFBX8rBUul1/social-images/social-1759784659726-unnamed (1) (1).png"
     />
-    <meta property="og:title" content="Коробка - Все ИИ-курсы в одной подписке" />
-    <meta name="twitter:title" content="Коробка - Все ИИ-курсы в одной подписке" />
+    <meta
+      property="og:title"
+      content="Коробка - Все ИИ-курсы в одной подписке"
+    />
+    <meta
+      name="twitter:title"
+      content="Коробка - Все ИИ-курсы в одной подписке"
+    />
     <meta
       property="og:description"
       content="ChatGPT, ИИ-фотосессии, видео-генерация, автоматизация и монетизация — всё в одной Telegram-подписке. Практические курсы по искусственному интеллекту."
@@ -59,21 +90,40 @@
   </head>
 
   <body>
-    <noscript
-      ><div><img src="https://mc.yandex.ru/watch/104427792" style="position:absolute; left:-9999px;" alt="" /></div
-    ></noscript>
+    <noscript>
+      <div>
+        <img
+          src="https://mc.yandex.ru/watch/104427792"
+          style="position: absolute; left: -9999px"
+          alt=""
+        />
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
-      window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY + window.innerHeight;
-        const pageHeight = document.documentElement.scrollHeight;
+      window.dataLayer = window.dataLayer || [];
 
-        if (scrollPosition >= pageHeight * 0.5 && !window.scroll50Sent) {
-          window.scroll50Sent = true;
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ event: 'scroll_50' });
-          console.log('✅ scroll_50 event sent');
+      window.addEventListener("scroll", () => {
+        const scrollPercent = Math.round(
+          ((window.scrollY + window.innerHeight) / document.body.scrollHeight) *
+            100
+        );
+        if (scrollPercent >= 25 && !window.scroll25) {
+          window.dataLayer.push({ event: "scroll_25" });
+          window.scroll25 = true;
+        }
+        if (scrollPercent >= 50 && !window.scroll50) {
+          window.dataLayer.push({ event: "scroll_50" });
+          window.scroll50 = true;
+        }
+        if (scrollPercent >= 75 && !window.scroll75) {
+          window.dataLayer.push({ event: "scroll_75" });
+          window.scroll75 = true;
+        }
+        if (scrollPercent >= 100 && !window.scroll100) {
+          window.dataLayer.push({ event: "scroll_100" });
+          window.scroll100 = true;
         }
       });
     </script>

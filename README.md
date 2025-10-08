@@ -60,6 +60,20 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Environment Variables
+
+Для настройки аналитики создайте файл `.env.local` в корне проекта:
+
+```bash
+# Яндекс.Метрика
+VITE_YANDEX_METRICA_ID=your_metric_id_here
+```
+
+**Важно:**
+
+- На localhost Яндекс.Метрика отключена автоматически
+- На продакшене метрика работает с указанным ID
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/379cc967-2805-404d-a9fa-b90eeb5603b0) and click on Share -> Publish.

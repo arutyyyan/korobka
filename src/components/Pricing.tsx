@@ -3,6 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBotUrl } from "@/lib/utils";
 
 const Pricing = () => {
+  const handleClick = () => {
+    // Отправляем событие в Яндекс.Метрику
+    if (window.ym) {
+      window.ym(104427792, "reachGoal", "click_start"); // 👈 цель: "Начать за 20€/мес"
+    }
+    // Открываем Telegram-бот
+    window.open(getBotUrl(), "_blank");
+  };
   return (
     <section className="py-20 px-4">
       <div className="container mx-auto max-w-6xl">
@@ -89,11 +97,11 @@ const Pricing = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button 
-            size="lg" 
-            variant="hero" 
+          <Button
+            size="lg"
+            variant="hero"
             className="text-sm sm:text-base md:text-lg px-4 py-4 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto"
-            onClick={() => window.open(getBotUrl(), '_blank')}
+            onClick={handleClick}
           >
             💡 Начать за 20€/мес
           </Button>

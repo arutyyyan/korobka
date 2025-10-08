@@ -2,6 +2,14 @@ import { Button } from "@/components/ui/button";
 import { getBotUrl } from "@/lib/utils";
 
 const FreeLesson = () => {
+  const handleClick = () => {
+    // Отправляем событие в Яндекс.Метрику
+    if (window.ym) {
+      window.ym(104427792, "reachGoal", "click_continue"); // 👈 цель для кнопки "Продолжить обучение"
+    }
+    // Открываем Telegram-бот
+    window.open(getBotUrl(), "_blank");
+  };
   return (
     <section className="py-20 px-4 bg-muted/20">
       <div className="container mx-auto max-w-4xl">
@@ -18,18 +26,20 @@ const FreeLesson = () => {
               <div className="text-6xl">🎬</div>
               <p className="text-lg text-muted-foreground max-w-md">
                 Урок из модуля "ChatGPT для контента": <br />
-                <span className="font-semibold text-foreground">Как сделать контент-план за 5 минут</span>
+                <span className="font-semibold text-foreground">
+                  Как сделать контент-план за 5 минут
+                </span>
               </p>
             </div>
           </div>
 
           {/* CTA */}
           <div className="text-center pt-4">
-            <Button 
-              size="lg" 
-              variant="hero" 
+            <Button
+              size="lg"
+              variant="hero"
               className="text-xs sm:text-base md:text-lg px-4 py-3 sm:px-6 sm:py-5 md:px-8 md:py-6 h-auto w-full sm:w-auto whitespace-normal leading-tight sm:leading-normal"
-              onClick={() => window.open(getBotUrl(), '_blank')}
+              onClick={handleClick}
             >
               🚀 Продолжить обучение в Коробке
             </Button>
