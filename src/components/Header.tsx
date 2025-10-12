@@ -68,7 +68,7 @@ const Header = () => {
               onClick={handleClick}
               className="text-sm px-4 py-2"
             >
-              🎁 Получить доступ
+              Получить доступ
             </Button>
           </div>
 
@@ -131,7 +131,7 @@ const Header = () => {
                     onClick={handleClick}
                     className="w-full text-base py-3"
                   >
-                    🎁 Получить доступ за 20€/мес
+                    Получить доступ
                   </Button>
                   <p className="text-xs text-muted-foreground text-center mt-2">
                     Отменить можно в любой момент

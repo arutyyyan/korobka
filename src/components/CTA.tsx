@@ -26,7 +26,7 @@ const CTA = () => {
               </div>
               
               {/* Main Heading */}
-              <h3 className="text-5xl  md:text-5xl font-bold mb-6 leading-tight text-gray-900">
+              <h3 className="text-4xl  md:text-5xl font-bold mb-6 leading-tight text-gray-900">
                 Научись<br />
                 применять ИИ<br />
                 <span className="text-gray-900">уже сегодня</span>
@@ -43,7 +43,7 @@ const CTA = () => {
               {/* CTA Button */}
               <button
                 onClick={handleClick}
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-2xl transition-all text-lg hover:scale-105 transform w-fit"
+                className="bg-primary hover:bg-primary/90 text-white font-semibold px-4 py-4 w-full rounded-2xl transition-all text-lg hover:scale-105 transform "
               >
                 Начать обучение со скидкой
               </button>
