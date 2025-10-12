@@ -21,34 +21,7 @@ const Footer = () => {
   return (
     <footer className="bg-muted/30 border-t border-border/30">
       {/* Main CTA Section */}
-      <div className="py-16 px-4 bg-gradient-to-br from-background via-background to-muted/20">
-      <div className="container mx-auto max-w-4xl">
-        <div className="text-center space-y-8">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-            🔥 Начни применять ИИ <span className="gradient-text">сегодня</span>
-          </h2>
-          <div className="space-y-4">
-              <p className="text-xl sm:text-2xl md:text-3xl font-semibold">
-              Всё обучение — в одной Коробке.
-            </p>
-              <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
-              20€ в месяц. Доступ ко всем курсам. Отмена в один клик.
-            </p>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground">
-              Не нужно ждать «подходящего момента». Он уже прошёл.
-            </p>
-          </div>
-          <Button
-            size="lg"
-            variant="hero"
-              className="text-lg px-8 py-6 h-auto min-w-[300px] font-semibold"
-            onClick={handleClick}
-          >
-            🎁 Открыть Коробку и получить доступ
-          </Button>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Footer Navigation */}
       <div className="py-12 px-4">

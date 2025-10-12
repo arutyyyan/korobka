@@ -123,7 +123,7 @@ const Hero = () => {
       <div className="container relative z-10 mx-auto px-4 py-10 sm:py-20">
         <div className="max-w-4xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-4 py-2 text-sm backdrop-blur-sm mb-8 hover:border-primary/50 transition-colors">
+          <div className="bg-white inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-4 py-2 text-sm backdrop-blur-sm mb-8 hover:border-primary/50 transition-colors">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="text-muted-foreground">Новые уроки каждую неделю</span>
           </div>
@@ -135,8 +135,8 @@ const Hero = () => {
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed">
-          Одна подписка на все актуальные знания по ИИ в одном месте
+          <p className="text-xl sm:text-2xl text-muted-foreground max-w-xl mx-auto mb-12 leading-relaxed">
+          Одна подписка на все актуальные знания по нейросетям в одном месте
           </p>
 
           {/* CTA Section */}

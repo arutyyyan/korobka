@@ -33,8 +33,11 @@ const CTA = () => {
               </h3>
               
               {/* Discount Text */}
-              <p className="text-xl sm:text-2xl text-gray-700 mb-8 font-medium">
+              <p className="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
                 Получи скидку 30%
+              </p>
+              <p className="text-lg text-primary font-semibold mb-8">
+                Промокод: CHAT
               </p>
               
               {/* CTA Button */}

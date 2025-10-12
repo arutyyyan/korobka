@@ -15,6 +15,19 @@ const availableCourses = [
     ]
   },
   {
+    title: "ChatGPT. Beginner",
+    description: "Вы научитесь:",
+    lessons: "12 уроков",
+    result: "Сможете использовать ChatGPT для заработка",
+    cover: "/gpt_cover.jpg",
+    skills: [
+      "Писать эффективные промпты",
+      "Создавать изображения",
+      "Анализировать файлы",
+      "Создавать мини-сайты"
+    ]
+  },
+  {
     title: "Lovable",
     description: "Вы научитесь без кода:",
     lessons: "14 уроков", 
@@ -44,43 +57,44 @@ const availableCourses = [
 ];
 
 const upcomingCourses = [
-  {
-    title: "ChatGPT",
-    description: "Основы ИИ и промпт-инжиниринг",
-    lessons: "12 уроков",
-    result: "Автоматизация работы",
-    cover: "/gpt_cover.jpg",
-    skills: [
-      "Писать эффективные промпты",
-      "Автоматизировать рутину",
-      "Создавать контент за минуты",
-      "Повышать продуктивность в 3 раза"
-    ]
-  },
+  
   {
     title: "Make",
     description: "ИИ-автоматизация бизнес-процессов",
-    lessons: "8 уроков",
+    // lessons: "8 уроков",
     result: "Экономия 10+ часов/неделю",
     cover: "/make_cover.jpg",
     skills: [
       "Настраивать автопроцессы",
       "Интегрировать сервисы",
-      "Собирать лиды автоматически",
-      "Масштабировать бизнес"
+      "Создавать сложных ботов",
+      "Автоматизировать любые процессы"
     ]
   },
   {
-    title: "Midjourney",
-    description: "ИИ-дизайн и визуальный контент",
-    lessons: "6 уроков",
-    result: "Уникальные изображения",
-    cover: "/lovable_cover.jpg",
+    title: "ИИ-аватары",
+    description: "Вы научитесь:",
+    // lessons: "8 уроков",
+    result: "Замените живую съемку на аватаров",
+    cover: "/avatar.webp",
     skills: [
-      "Создавать иллюстрации",
-      "Делать логотипы и брендинг",
-      "Генерировать фото для проектов",
-      "Экономить на дизайнерах"
+      "Создавать ИИ-аватаров",
+      "Интегрировать Eleven Labs",
+      "Работать с Heygen",
+    ]
+  },
+
+  {
+    title: "Контент-завод",
+    description: "Вы научитесь:",
+    // lessons: "6 уроков",
+    result: "Полностью автоматизируйте ведение контента",
+    cover: "/zavod.webp",
+    skills: [
+      "Создавать контент с ИИ",
+      "Подключать ИИ-аватаров",
+      "Монтировать видео автоматически",
+      "Настраивать автопубликацию",
     ]
   }
 ];
@@ -112,7 +126,7 @@ const Courses = () => {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {availableCourses.map((course, index) => (
-              <div key={index} className="bg-[#fafafa] rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow flex flex-col h-full">
+              <div key={index} className="bg-[#fafafa] rounded-3xl overflow-hidden border border-gray-200 flex flex-col h-full">
                 {/* Course Cover */}
                 <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/10 relative">
                   <img 
@@ -165,7 +179,7 @@ const Courses = () => {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {upcomingCourses.map((course, index) => (
-              <div key={index} className="bg-[#fafafa] rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow opacity-80 flex flex-col h-full">
+              <div key={index} className="bg-[#fafafa] rounded-3xl overflow-hidden border border-gray-200 flex flex-col h-full">
                 {/* Course Cover */}
                 <div className="h-32 bg-gradient-to-br from-gray-300/20 to-gray-300/10 relative">
                   <img 
