@@ -6,7 +6,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getBotUrl(): string {
-  const baseUrl = "https://t.me/alish_abd_bot";
+  const baseUrl = "https://t.me/korobka_align_bot";
   
   if (typeof window === "undefined") {
     return `${baseUrl}?start=landing`;

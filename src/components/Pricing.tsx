@@ -81,7 +81,7 @@ const Pricing = () => {
          
               
               {/* Carousel Section */}
-              <div className="rounded-3xl py-4 px-6 mb-2 bg-gray-100">
+              <div className="rounded-3xl py-2 px-2 mb-2 bg-gray-100">
                 {/* <div className="flex items-center justify-center  mb-1">
                   <h4 className="text-lg  text-gray-600">
                     Реальные цены в других школах:
@@ -89,7 +89,7 @@ const Pricing = () => {
                 </div> */}
                 
                   <div className="relative">
-                    <div className="bg-white rounded-lg relative">
+                    <div className="bg-white rounded-xl relative">
                       <div className="w-full h-28 rounded overflow-hidden relative">
                         <img 
                           src={coursePrices[currentSlide].image}
