@@ -1,0 +1,30 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="texture" patternUnits="userSpaceOnUse" width="4" height="4">
+      <circle cx="2" cy="2" r="0.5" fill="rgba(0,0,0,0.05)" />
+    </pattern>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="400" height="300" fill="#E64A19" />
+  
+  <!-- Peach/beige section with jagged edge (mirrored vertically) -->
+  <path d="M 0 0 
+           L 50 20
+           L 80 40
+           L 120 60
+           L 150 80
+           L 180 100
+           L 220 120
+           L 250 140
+           L 280 160
+           L 320 180
+           L 350 200
+           L 380 220
+           L 400 240
+           L 400 0 Z" 
+        fill="#F8E8D8" />
+  
+  <!-- Texture overlay -->
+  <rect width="400" height="300" fill="url(#texture)" />
+</svg>

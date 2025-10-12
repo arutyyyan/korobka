@@ -1,121 +1,216 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-
-const activeCourses = [
+const availableCourses = [
   {
-    emoji: "⚡️",
     title: "Align Code",
-    subtitle: "Сайты и боты без программирования",
+    description: "Вы научитесь:",
     lessons: "84 урока",
-    description: "Научишься создавать:",
-    points: [
-      "Лендинги для продажи услуг",
-      "Telegram-ботов для автоматизации",
-      "ИИ-сервисы для клиентов"
-    ],
-    result: "сможешь брать заказы на разработку по 200-500€"
+    result: "Сможете брать заказы на сложную разработку сайтов и ботов",
+    cover: "/align_cover.jpg",
+    skills: [
+      
+      "Создавать лендинги за 2-3 часа",
+      "Делать Telegram-ботов для бизнеса", 
+      "Автоматизировать процессы клиентов",
+      "Строить ИИ-сервисы, SaaS-продукты",
+      "Понимать код",
+    ]
   },
   {
-    emoji: "❤️",
     title: "Lovable",
-    subtitle: "Вайб-кодинг для красивых проектов",
-    lessons: "14 уроков",
-    description: "Создавай интерфейсы, которые продают:",
-    points: [
-      "Лендинги для стартапов",
-      "Портфолио и интерактивные сайты",
-      "MVP для тестирования идей"
-    ],
-    result: "портфолио проектов для фриланса"
+    description: "Вы научитесь без кода:",
+    lessons: "14 уроков", 
+    result: "Сможете брать заказы на разработку сайтов",
+    cover: "/lovable_cover.jpg",
+    skills: [
+      
+      "Делать интерактивные прототипы",
+      "Строить онлайн-магазины",
+      "Строить ИИ-сервисы",
+      "Вайб-кодить"
+    ]
   },
   {
-    emoji: "🥺",
     title: "Sora",
-    subtitle: "ИИ-видео и аватары",
+    description: "Вы научитесь:",
     lessons: "4 урока",
-    description: "Создавай видео без съёмок:",
-    points: [
-      "Твой ИИ-аватар — говорит любой текст твоим лицом",
-      "Видео из промпта — описал, получил ролик",
-      "Контент для соцсетей — Reels и TikTok за минуты"
-    ],
-    result: "видео без камеры, видеографов и сммщиков"
+    result: "Видео без камеры",
+    cover: "/sora_cover.jpg",
+    skills: [
+      "Создавать ИИ-аватары",
+      "Генерировать видео из текста",
+      "Делать контент для соцсетей",
+      "Экономить на видеографах"
+    ]
   }
 ];
 
 const upcomingCourses = [
-  "🌐 Основы ИИ — ChatGPT, prompting, Claude, Gemini, Perplexity для работы",
-  "⚙️ ИИ-автоматизация Make — автопроцессы для бизнеса (лидогенерация, email-рассылки)",
-  "💬 ИИ-мессенджеры — WhatsApp и Telegram-боты с OpenAI для продаж",
-  "🧠 Цифровые двойники — ИИ-аватары для видео и презентаций",
-  "🎬 ИИ-видео и фото — Runway, Pika, Flux, Midjourney, Sora для контента",
-  "🏭 Контент-завод — автоматизация Reels, постов, креативов",
-  "💻 Вайб-кодинг — Lovable, Bolt, Framer для UI/UX-проектов"
+  {
+    title: "ChatGPT",
+    description: "Основы ИИ и промпт-инжиниринг",
+    lessons: "12 уроков",
+    result: "Автоматизация работы",
+    cover: "/gpt_cover.jpg",
+    skills: [
+      "Писать эффективные промпты",
+      "Автоматизировать рутину",
+      "Создавать контент за минуты",
+      "Повышать продуктивность в 3 раза"
+    ]
+  },
+  {
+    title: "Make",
+    description: "ИИ-автоматизация бизнес-процессов",
+    lessons: "8 уроков",
+    result: "Экономия 10+ часов/неделю",
+    cover: "/make_cover.jpg",
+    skills: [
+      "Настраивать автопроцессы",
+      "Интегрировать сервисы",
+      "Собирать лиды автоматически",
+      "Масштабировать бизнес"
+    ]
+  },
+  {
+    title: "Midjourney",
+    description: "ИИ-дизайн и визуальный контент",
+    lessons: "6 уроков",
+    result: "Уникальные изображения",
+    cover: "/lovable_cover.jpg",
+    skills: [
+      "Создавать иллюстрации",
+      "Делать логотипы и брендинг",
+      "Генерировать фото для проектов",
+      "Экономить на дизайнерах"
+    ]
+  }
 ];
 
 const Courses = () => {
   return (
-    <section className="py-20 px-4">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-8 pb-0 px-4">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            📦 Что внутри <span className="gradient-text">Коробки</span>
+        <h2 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-6 max-w-2xl mx-auto">
+            Что есть внутри Коробки?
           </h2>
+          <p className="text-lg text-gray-600 max-w-md mx-auto">
+            Практические курсы по ИИ-инструментам. От теории к заработку за недели
+          </p>
         </div>
 
-        {/* Active Courses */}
+        {/* Available Courses */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold mb-8">Уже доступно:</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {activeCourses.map((course, index) => (
-              <Card key={index} className="glass-card border-border/50 hover:border-primary/50 transition-all duration-300">
-                <CardHeader>
-                  <div className="text-4xl mb-2">{course.emoji}</div>
-                  <CardTitle className="text-2xl">{course.title}</CardTitle>
-                  <CardDescription className="text-base">{course.subtitle}</CardDescription>
-                  <div className="text-sm font-semibold text-primary pt-2">{course.lessons}</div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="font-semibold">{course.description}</p>
-                  <ul className="space-y-2">
-                    {course.points.map((point, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm">
-                        <span className="text-primary">•</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="pt-4 border-t border-border/30">
-                    <p className="text-sm font-semibold">
-                      <span className="gradient-text">Результат:</span> {course.result}
-                    </p>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900">Уже доступно</h3>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {availableCourses.map((course, index) => (
+              <div key={index} className="bg-[#fafafa] rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow flex flex-col h-full">
+                {/* Course Cover */}
+                <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/10 relative">
+                  <img 
+                    src={course.cover} 
+                    alt={course.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute top-3 right-3 text-xs text-white bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                    {course.lessons}
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex-1 min-h-0">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">{course.title}</h4>
+                    <p className="text-gray-600 mb-4 text-sm">{course.description}</p>
+                    
+                    <div className="space-y-2 mb-4">
+                      {course.skills.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-2 text-sm">
+                          <svg className="w-3 h-3 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-gray-700">{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-sm font-semibold text-primary mt-4 pt-4 border-t border-gray-200">
+                    
+                    Результат: {course.result}
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
 
         {/* Upcoming Courses */}
-        <div className="glass-card rounded-2xl p-8 md:p-12">
-          <h3 className="text-2xl font-bold mb-6">🔜 В разработке (выходят каждую неделю):</h3>
-          <div className="grid md:grid-cols-2 gap-4 mb-8">
+        <div className="mb-16">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-8 h-8 bg-gray-400 rounded-lg flex items-center justify-center">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900">В ближайшие недели</h3>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {upcomingCourses.map((course, index) => (
-              <div key={index} className="flex items-start gap-3 p-4 rounded-lg bg-muted/20 hover:bg-muted/30 transition-colors">
-                <span>{course}</span>
+              <div key={index} className="bg-[#fafafa] rounded-2xl overflow-hidden border border-gray-200 hover:shadow-md transition-shadow opacity-80 flex flex-col h-full">
+                {/* Course Cover */}
+                <div className="h-32 bg-gradient-to-br from-gray-300/20 to-gray-300/10 relative">
+                  <img 
+                    src={course.cover} 
+                    alt={course.title}
+                    className="w-full h-full object-cover grayscale"
+                  />
+                  <div className="absolute top-3 right-3 text-xs text-white bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                    {course.lessons}
+                  </div>
+                  <div className="absolute top-3 left-3 text-xs text-white bg-primary px-2 py-1 rounded-full">
+                    Скоро
+                  </div>
+                </div>
+                
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex-1 min-h-0">
+                    <h4 className="text-xl font-bold text-gray-900 mb-2">{course.title}</h4>
+                    <p className="text-gray-600 mb-4 text-sm">{course.description}</p>
+                    
+                    <div className="space-y-2 mb-4">
+                      {course.skills.map((skill, i) => (
+                        <div key={i} className="flex items-center gap-2 text-sm">
+                          <svg className="w-3 h-3 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-gray-600">{skill}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 text-sm font-semibold text-gray-500 mt-4 pt-4 border-t border-gray-200">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                    Результат: {course.result}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
-          
-          <div className="border-t border-border/50 pt-8 space-y-4">
-            <p className="text-xl font-bold text-center gradient-text">
-              → Покупаешь один раз. Получаешь доступ ко всем текущим и будущим курсам.
-            </p>
-            <div className="flex flex-col items-center gap-2 text-muted-foreground text-sm">
-              <p>• Новые курсы добавляются каждую неделю.</p>
-              <p>• Всё доступно прямо в Telegram, без сайтов и паролей.</p>
-            </div>
-          </div>
         </div>
+
+       
       </div>
     </section>
   );

@@ -8,10 +8,10 @@ const WhyItWorks = () => {
   ];
 
   return (
-    <section className="py-20 px-4">
+    <section className="py-10 px-4">
       <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
             Почему это <span className="gradient-text">работает</span>
           </h2>
         </div>
@@ -21,7 +21,7 @@ const WhyItWorks = () => {
             {reasons.map((reason, index) => (
               <div key={index} className="flex items-start gap-4 p-4 rounded-lg bg-muted/20 hover:bg-muted/30 transition-colors">
                 <span className="text-primary text-2xl font-bold">{index + 1}.</span>
-                <p className="text-lg pt-1">{reason}</p>
+                <p className="text-base sm:text-lg pt-1">{reason}</p>
               </div>
             ))}
           </div>
