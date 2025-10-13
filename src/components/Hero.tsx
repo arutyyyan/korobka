@@ -8,7 +8,7 @@ const Hero = () => {
   const handleClick = () => {
     // отправляем событие в Яндекс.Метрику
     if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_start_learning"); // <-- имя цели
+      // window.ym(104427792, "reachGoal", "click_start_learning"); // <-- имя цели
     }
     // открываем Telegram-бот
     window.open(getBotUrl(), "_blank");
@@ -17,7 +17,7 @@ const Hero = () => {
   const handleFreeLessonClick = () => {
     // отправляем событие в Яндекс.Метрику
     if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_free_lesson");
+      // window.ym(104427792, "reachGoal", "click_free_lesson");
     }
     setIsModalOpen(true);
   };

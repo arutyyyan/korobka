@@ -8,7 +8,7 @@ const Problem = () => {
   const handleClick = () => {
     // Отправляем событие в Яндекс.Метрику
     if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_start_learning");
+      // window.ym(104427792, "reachGoal", "click_start_learning");
     }
     // Открываем Telegram-бот
     window.open(getBotUrl(), "_blank");

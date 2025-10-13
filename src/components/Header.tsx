@@ -10,7 +10,7 @@ const Header = () => {
   const handleClick = () => {
     // отправляем событие в Яндекс.Метрику
     if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_access");
+      // window.ym(104427792, "reachGoal", "click_access");
     }
     // открываем Telegram-бот
     window.open(getBotUrl(), "_blank");

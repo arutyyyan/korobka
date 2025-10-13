@@ -3,9 +3,9 @@ import { getBotUrl } from "@/lib/utils";
 const CTA = () => {
   const handleClick = () => {
     // Отправляем событие в Яндекс.Метрику
-    if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_start_learning_skidka'");
-    }
+    // if (window.ym) {
+    //   window.ym(104427792, "reachGoal", "click_start_learning_skidka");
+    // }
     // Открываем Telegram-бот
     window.open(getBotUrl(), "_blank");
   };
