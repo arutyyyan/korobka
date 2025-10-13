@@ -289,6 +289,26 @@ const Hero = () => {
               </div>
             </div>
           </div>
+
+          {/* Scroll Down Hint */}
+          <div className="mt-16 max-w-xl mx-auto">
+            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 relative overflow-hidden">
+              <div className="text-center">
+                <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">
+                  Промокод на скидку спрятан в конце страницы. Не пропустите!
+                </h3>
+                <div className="flex items-center justify-center gap-2 text-primary">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="font-medium">Экономия до 30%</span>
+                </div>
+              </div>
+              {/* Subtle animation elements */}
+              <div className="absolute -top-2 -right-2 w-16 h-16 bg-primary/5 rounded-full blur-sm animate-pulse" />
+              <div className="absolute -bottom-2 -left-2 w-20 h-20 bg-secondary/5 rounded-full blur-sm animate-pulse delay-1000" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
