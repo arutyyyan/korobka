@@ -8,11 +8,6 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    // отправляем событие в Яндекс.Метрику
-    if (window.ym) {
-      // window.ym(104427792, "reachGoal", "click_access");
-    }
-    // открываем Telegram-бот
     window.open(getBotUrl(), "_blank");
     setIsOpen(false);
   };
@@ -37,14 +32,8 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-3">
-            <img
-              src={logoBox}
-              alt="Коробка"
-              className="h-8 w-8"
-            />
-            <span className="text-xl font-bold gradient-text">
-              Коробка
-            </span>
+            <img src={logoBox} alt="Коробка" className="h-8 w-8" />
+            <span className="text-xl font-bold gradient-text">Коробка</span>
           </div>
 
           {/* Desktop Navigation */}
@@ -75,11 +64,7 @@ const Header = () => {
           {/* Mobile Menu */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-              >
+              <Button variant="ghost" size="sm" className="md:hidden">
                 <svg
                   className="h-6 w-6"
                   fill="none"
@@ -100,11 +85,7 @@ const Header = () => {
               <div className="flex flex-col h-full">
                 {/* Mobile Logo */}
                 <div className="flex items-center gap-3 mb-8">
-                  <img
-                    src={logoBox}
-                    alt="Коробка"
-                    className="h-8 w-8"
-                  />
+                  <img src={logoBox} alt="Коробка" className="h-8 w-8" />
                   <span className="text-xl font-bold gradient-text">
                     Коробка
                   </span>
@@ -147,5 +128,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

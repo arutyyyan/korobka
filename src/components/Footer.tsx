@@ -4,11 +4,6 @@ import logoBox from "@/assets/logo-box.png";
 
 const Footer = () => {
   const handleClick = () => {
-    // Отправляем событие в Яндекс.Метрику
-    if (window.ym) {
-      // window.ym(104427792, "reachGoal", "click_open"); // 👈 название цели в Метрике
-    }
-    // После этого открываем Telegram-бота
     window.open(getBotUrl(), "_blank");
   };
 
