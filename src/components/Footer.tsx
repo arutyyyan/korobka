@@ -118,7 +118,7 @@ const Footer = () => {
                   <span className="text-muted-foreground">Midjourney и DALL-E</span>
                 </li>
                 <li>
-                  <span className="text-muted-foreground">Lovable для разработки</span>
+                  <span className="text-muted-foreground">Коробка для обучения ИИ</span>
                 </li>
                 <li>
                   <span className="text-muted-foreground">Sora для видео</span>

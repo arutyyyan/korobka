@@ -1,3 +1,5 @@
+import logoBox from "@/assets/logo-box.png";
+
 const availableCourses = [
   {
     title: "Align Code",
@@ -105,11 +107,15 @@ const Courses = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-white px-4 py-2 text-sm backdrop-blur-sm mb-6">
+            <img src={logoBox} alt="box" className="w-6 h-6" />
+            <span className=" gradient-text font-semibold">Решение</span>
+          </div>
         <h2 className="text-3xl sm:text-4xl md:text-7xl font-bold mb-6 max-w-2xl mx-auto">
-            Что есть внутри Коробки?
+            Поэтому мы создали Коробку
           </h2>
           <p className="text-lg text-gray-600 max-w-md mx-auto">
-            Практические курсы по ИИ-инструментам. От теории к заработку за недели
+            Постоянно обновляемые практические курсы по всем нужным нейросетям и ИИ-инструментам
           </p>
         </div>
 
@@ -187,9 +193,11 @@ const Courses = () => {
                     alt={course.title}
                     className="w-full h-full object-cover grayscale"
                   />
-                  <div className="absolute top-3 right-3 text-xs text-white bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
-                    {course.lessons}
-                  </div>
+                  {(course as any).lessons && (
+                    <div className="absolute top-3 right-3 text-xs text-white bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
+                      {(course as any).lessons}
+                    </div>
+                  )}
                   <div className="absolute top-3 left-3 text-xs text-white bg-primary px-2 py-1 rounded-full">
                     Скоро
                   </div>

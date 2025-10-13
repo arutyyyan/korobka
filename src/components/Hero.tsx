@@ -48,7 +48,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center justify-center">
               <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-blue-500/30 to-blue-600/30 border border-blue-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-blue-300 shadow-lg backdrop-blur-sm">
-                Lovable
+                Коробка
               </div>
             </div>
             <div className="flex items-center justify-center">

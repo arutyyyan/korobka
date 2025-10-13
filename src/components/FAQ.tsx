@@ -32,7 +32,7 @@ const faqItems = [
   },
   {
     question: "Какие темы уже доступны?",
-    answer: "Align Code (84 урока), Lovable (14 уроков), Sora (4 урока)."
+    answer: "Align Code (84 урока), ИИ-разработка (14 уроков), Sora (4 урока)."
   },
   {
     question: "Это разовая оплата или подписка?",
