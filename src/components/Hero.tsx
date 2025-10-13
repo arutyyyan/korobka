@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { getBotUrl } from "@/lib/utils";
 import { useState } from "react";
+import saleImage from "@/assets/30sale.webp";
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -113,11 +114,19 @@ const Hero = () => {
       {/* Content */}
       <div className="container relative z-10 mx-auto px-4 py-10 sm:py-20">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
-          <div className="bg-white inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-4 py-2 text-sm backdrop-blur-sm mb-8 hover:border-primary/50 transition-colors">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-muted-foreground">
-              Новые уроки каждую неделю
+          {/* Special Offer Badge */}
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-full border border-primary/20 px-1 py-1 text-sm mb-8 hover:border-primary/40 transition-colors relative overflow-visible">
+            <img 
+              src={saleImage} 
+              alt="30% Sale" 
+              className="w-10 h-10 mt-[-15px] object-contain animate-bounce"
+              
+            />
+            <span className="text-primary font-medium">
+              Промокод на скидку внизу
+            </span>
+            <span className="text-xs bg-primary/20 px-2 py-1 rounded-full text-primary font-semibold">
+              -30%
             </span>
           </div>
 
@@ -290,25 +299,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Scroll Down Hint */}
-          <div className="mt-16 max-w-xl mx-auto">
-            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-2xl p-6 border border-primary/20 relative overflow-hidden">
-              <div className="text-center">
-                <h3 className="text-xl md:text-2xl font-bold mb-2 text-foreground">
-                  Промокод на скидку спрятан в конце страницы. Не пропустите!
-                </h3>
-                <div className="flex items-center justify-center gap-2 text-primary">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="font-medium">Экономия до 30%</span>
-                </div>
-              </div>
-              {/* Subtle animation elements */}
-              <div className="absolute -top-2 -right-2 w-16 h-16 bg-primary/5 rounded-full blur-sm animate-pulse" />
-              <div className="absolute -bottom-2 -left-2 w-20 h-20 bg-secondary/5 rounded-full blur-sm animate-pulse delay-1000" />
-            </div>
-          </div>
         </div>
       </div>
     </section>

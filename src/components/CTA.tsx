@@ -2,7 +2,7 @@ import { getBotUrl } from "@/lib/utils";
 
 const CTA = () => {
   const handleClick = () => {
-    window.open(getBotUrl(), "_blank");
+    window.open("https://t.me/tribute/app?startapp=sC9M_pc_CHAT", "_blank");
   };
 
   return (
