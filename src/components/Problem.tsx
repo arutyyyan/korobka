@@ -2,8 +2,20 @@ import lovableIcon from "@/assets/lovable.webp";
 import chatgptIcon from "@/assets/chatgpt.webp";
 import makeIcon from "@/assets/make.webp";
 import soraIcon from "@/assets/sora.webp";
+import { getBotUrl } from "@/lib/utils";
 
 const Problem = () => {
+
+  const handleClick = () => {
+    // Отправляем событие в Яндекс.Метрику
+    if (window.ym) {
+      window.ym(104427792, "reachGoal", "click_start");
+    }
+    // Открываем Telegram-бот
+    window.open(getBotUrl(), "_blank");
+  };
+
+
   return (
     <section className="py-10 px-4">
       <div className="mx-auto max-w-6xl">
@@ -246,7 +258,7 @@ const Problem = () => {
 
                  
 
-                  <button className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-4 rounded-2xl transition-colors shadow-lg">
+                  <button onClick={handleClick} className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-4 rounded-2xl transition-colors shadow-lg">
                     Начать обучение
                   </button>
                 </div>

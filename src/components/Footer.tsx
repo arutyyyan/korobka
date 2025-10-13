@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getBotUrl } from "@/lib/utils";
+import logoBox from "@/assets/logo-box.png";
 
 const Footer = () => {
   const handleClick = () => {
@@ -32,7 +33,7 @@ const Footer = () => {
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 flex items-center justify-center">
                   <img 
-                    src="/src/assets/logo-box.png" 
+                    src={logoBox} 
                     alt="Коробка логотип" 
                     className="w-full h-full object-contain"
                   />
@@ -54,7 +55,7 @@ const Footer = () => {
                   </svg>
                 </a>
                 <a 
-                  href="https://instagram.com/align_go" 
+                  href="https://www.instagram.com/align.go/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="w-10 h-10 bg-primary/10 hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors"
@@ -151,7 +152,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a 
-                    href="https://instagram.com/align_go" 
+                    href="https://www.instagram.com/align.go/" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
@@ -176,10 +177,10 @@ const Footer = () => {
               © 2025 Коробка. Все права защищены.
             </div>
             <div className="flex flex-wrap gap-6 text-sm">
-              <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/privacy" className="text-center w-full md:w-auto text-muted-foreground hover:text-foreground transition-colors">
                 Политика конфиденциальности
               </a>
-              <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/terms" className="text-center w-full md:w-auto text-muted-foreground hover:text-foreground transition-colors">
                 Условия использования
               </a>
              
