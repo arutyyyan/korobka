@@ -8,7 +8,7 @@ const Hero = () => {
   const handleClick = () => {
     // отправляем событие в Яндекс.Метрику
     if (window.ym) {
-      window.ym(104427792, "reachGoal", "click_access"); // <-- имя цели
+      window.ym(104427792, "reachGoal", "click_start_learning"); // <-- имя цели
     }
     // открываем Telegram-бот
     window.open(getBotUrl(), "_blank");
@@ -25,7 +25,7 @@ const Hero = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Minimal Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
-      
+
       {/* AI Tools Background */}
       <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
         <div className="absolute inset-0 flex items-center justify-center">
@@ -114,7 +114,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Subtle accent lines */}
       <div className="absolute top-1/4 left-0 w-32 h-px bg-gradient-to-r from-primary/50 to-transparent" />
       <div className="absolute bottom-1/4 right-0 w-48 h-px bg-gradient-to-l from-secondary/50 to-transparent" />
@@ -125,7 +125,9 @@ const Hero = () => {
           {/* Badge */}
           <div className="bg-white inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/60 px-4 py-2 text-sm backdrop-blur-sm mb-8 hover:border-primary/50 transition-colors">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-muted-foreground">Новые уроки каждую неделю</span>
+            <span className="text-muted-foreground">
+              Новые уроки каждую неделю
+            </span>
           </div>
 
           {/* Main Headline */}
@@ -136,7 +138,8 @@ const Hero = () => {
 
           {/* Subtitle */}
           <p className="text-xl sm:text-2xl text-muted-foreground max-w-xl mx-auto mb-12 leading-relaxed">
-          Одна подписка на все актуальные знания по нейросетям и AI-инструментам
+            Одна подписка на все актуальные знания по нейросетям и
+            AI-инструментам
           </p>
 
           {/* CTA Section */}
@@ -149,15 +152,29 @@ const Hero = () => {
             >
               <span className="flex items-center gap-3">
                 <span>Начать обучение</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                <svg
+                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
                 </svg>
               </span>
             </Button>
-            
+
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                />
               </svg>
               <span>20€/мес • Можно отменить в любой момент</span>
             </div>
@@ -165,7 +182,7 @@ const Hero = () => {
 
           {/* Free Lesson Image */}
           <div className="relative max-w-4xl mx-auto mb-16">
-            <div 
+            <div
               className="cursor-pointer group relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]"
               onClick={handleFreeLessonClick}
             >
@@ -174,9 +191,7 @@ const Hero = () => {
                 alt="Бесплатный пробный урок"
                 className="w-full h-auto object-cover"
               />
-              
-              
-              
+
               {/* Free Lesson Badge */}
               <div className="absolute top-4 left-4 bg-white text-black px-3 py-1 rounded-full text-sm font-semibold border border-gray-200">
                 Вводный урок
@@ -206,12 +221,24 @@ const Hero = () => {
             <div className="bg-white rounded-3xl p-4 border border-gray-100">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                 </div>
                 <div className="text-left">
-                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">100+ </h3>
+                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">
+                    100+{" "}
+                  </h3>
                   <p className="text-sm text-gray-600">практических уроков</p>
                 </div>
               </div>
@@ -221,12 +248,24 @@ const Hero = () => {
             <div className="bg-white rounded-3xl p-4 border border-gray-100">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">Еженедельно</h3>
+                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">
+                    Еженедельно
+                  </h3>
                   <p className="text-sm text-gray-600">выходят новые уроки</p>
                 </div>
               </div>
@@ -236,19 +275,29 @@ const Hero = () => {
             <div className="bg-white rounded-3xl p-4 border border-gray-100">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl  text-left font-bold text-gray-900 mb-1">24/7 поддержка</h3>
+                  <h3 className="text-xl  text-left font-bold text-gray-900 mb-1">
+                    24/7 поддержка
+                  </h3>
                   <p className="text-sm text-gray-600">сообщества экспертов</p>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
       </div>
     </section>
