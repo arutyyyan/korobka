@@ -197,7 +197,7 @@ const Hero = () => {
                     className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
                     onClick={handleClick}
                   >
-                    Купить подписку
+                    Оформить подписку
                   </Button>
                   
                   <Button

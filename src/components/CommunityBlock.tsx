@@ -29,22 +29,23 @@ const CommunityBlock = () => {
                 </svg>
                 <span className="gradient-text font-semibold">Сообщество</span>
               </div>
-              
+
               <h2 className="text-4xl sm:text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
                 Смотришь курсы, но вопросы задать некому?
               </h2>
-              
+
               <p className="text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed">
-                Помимо уроков, у нас живое комьюнити с постоянной поддержкой и ответами на все ваши вопросы
+                Помимо уроков, у нас живое комьюнити с постоянной поддержкой и
+                ответами на все ваши вопросы
               </p>
-              
+
               <div className="pt-2">
                 <Button
                   size="lg"
                   className="bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 h-auto font-semibold rounded-2xl transition-colors"
                   onClick={handleClick}
                 >
-                  Купить подписку
+                  Подключить подписку
                 </Button>
               </div>
             </div>
