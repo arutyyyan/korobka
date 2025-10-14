@@ -9,17 +9,20 @@ import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import Reviews from "@/components/Reviews";
+import CommunityBlock from "@/components/CommunityBlock";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Header />
       <Hero />
-      <Reviews />
+      
       <Problem />
       <div id="courses">
         <Courses />
       </div>
+      <CommunityBlock />
+      <Reviews />
       <div id="pricing">
         <Pricing />
       </div>

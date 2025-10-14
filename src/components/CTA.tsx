@@ -13,7 +13,7 @@ const CTA = () => {
             {/* Left Section - Text Content (2/5) */}
             <div className="lg:w-2/4 p-8 md:p-12 flex flex-col justify-center">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary text-primary px-4 py-2 rounded-full text-sm font-semibold mb-8 w-fit">
+              {/* <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary text-primary px-4 py-2 rounded-full text-sm font-semibold mb-8 w-fit">
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -28,7 +28,7 @@ const CTA = () => {
                   />
                 </svg>
                 Ограниченное предложение
-              </div>
+              </div> */}
 
               {/* Main Heading */}
               <h3 className="text-4xl  md:text-5xl font-bold mb-6 leading-tight text-gray-900">
@@ -43,6 +43,15 @@ const CTA = () => {
               <p className="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
                 Получи скидку 30%
               </p>
+              <div className="mb-6">
+                <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+                  <span className="line-through text-gray-400 mr-2">20€</span>
+                  <span className="text-green-600">14€/месяц</span>
+                </p>
+                <p className="text-sm text-gray-600">
+                  Экономия 6€ • Предложение ограничено по времени
+                </p>
+              </div>
               <p className="text-lg text-primary font-semibold mb-8">
                 Промокод: CHAT
               </p>
@@ -52,7 +61,7 @@ const CTA = () => {
                 onClick={handleClick}
                 className="bg-primary hover:bg-primary/90 text-white font-semibold px-4 py-4 w-full rounded-2xl transition-all text-lg hover:scale-105 transform "
               >
-                Начать обучение со скидкой
+                Купить подписку со скидкой
               </button>
             </div>
 

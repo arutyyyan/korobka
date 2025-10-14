@@ -1,105 +1,10 @@
 import logoBox from "@/assets/logo-box.png";
-
-const availableCourses = [
-  {
-    title: "Align Code",
-    description: "Вы научитесь:",
-    lessons: "84 урока",
-    result: "Сможете брать заказы на сложную разработку сайтов и ботов",
-    cover: "/align_cover.jpg",
-    skills: [
-      
-      "Создавать лендинги за 2-3 часа",
-      "Делать Telegram-ботов для бизнеса", 
-      "Автоматизировать процессы клиентов",
-      "Строить ИИ-сервисы, SaaS-продукты",
-      "Понимать код",
-    ]
-  },
-  {
-    title: "ChatGPT. Beginner",
-    description: "Вы научитесь:",
-    lessons: "12 уроков",
-    result: "Сможете использовать ChatGPT для заработка",
-    cover: "/gpt_cover.jpg",
-    skills: [
-      "Писать эффективные промпты",
-      "Создавать изображения",
-      "Анализировать файлы",
-      "Создавать мини-сайты"
-    ]
-  },
-  {
-    title: "Lovable",
-    description: "Вы научитесь без кода:",
-    lessons: "14 уроков", 
-    result: "Сможете брать заказы на разработку сайтов",
-    cover: "/lovable_cover.jpg",
-    skills: [
-      
-      "Делать интерактивные прототипы",
-      "Строить онлайн-магазины",
-      "Строить ИИ-сервисы",
-      "Вайб-кодить"
-    ]
-  },
-  {
-    title: "Sora",
-    description: "Вы научитесь:",
-    lessons: "4 урока",
-    result: "Видео без камеры",
-    cover: "/sora_cover.jpg",
-    skills: [
-      "Создавать ИИ-аватары",
-      "Генерировать видео из текста",
-      "Делать контент для соцсетей",
-      "Экономить на видеографах"
-    ]
-  }
-];
-
-const upcomingCourses = [
-  
-  {
-    title: "Make",
-    description: "ИИ-автоматизация бизнес-процессов",
-    // lessons: "8 уроков",
-    result: "Экономия 10+ часов/неделю",
-    cover: "/make_cover.jpg",
-    skills: [
-      "Настраивать автопроцессы",
-      "Интегрировать сервисы",
-      "Создавать сложных ботов",
-      "Автоматизировать любые процессы"
-    ]
-  },
-  {
-    title: "ИИ-аватары",
-    description: "Вы научитесь:",
-    // lessons: "8 уроков",
-    result: "Замените живую съемку на аватаров",
-    cover: "/avatar.webp",
-    skills: [
-      "Создавать ИИ-аватаров",
-      "Интегрировать Eleven Labs",
-      "Работать с Heygen",
-    ]
-  },
-
-  {
-    title: "Контент-завод",
-    description: "Вы научитесь:",
-    // lessons: "6 уроков",
-    result: "Полностью автоматизируйте ведение контента",
-    cover: "/zavod.webp",
-    skills: [
-      "Создавать контент с ИИ",
-      "Подключать ИИ-аватаров",
-      "Монтировать видео автоматически",
-      "Настраивать автопубликацию",
-    ]
-  }
-];
+import { availableCourses, upcomingCourses } from "@/config/courses";
+import { Button } from "@/components/ui/button";
+import { Drawer, DrawerContent, DrawerTrigger, DrawerClose } from "@/components/ui/drawer";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { Info, Gauge, Clock, Wrench, BookOpenText } from "lucide-react";
+import { getBotUrl } from "@/lib/utils";
 
 const Courses = () => {
   return (
@@ -161,10 +66,187 @@ const Courses = () => {
                       ))}
                     </div>
                   </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-4">
+                      Результат: {course.result}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {/* Mobile: bottom sheet */}
+                      <div className="sm:hidden">
+                        <Drawer>
+                          <DrawerTrigger asChild>
+                            <Button variant="outline" className="w-full">Программа</Button>
+                          </DrawerTrigger>
+                          <DrawerContent className="p-0 overflow-hidden h-[85vh]">
+                            <div className="flex h-full flex-col">
+                              {/* Header (not scrollable) */}
+                              <div className="p-5 pt-0 pb-3 flex items-start justify-between gap-3 border-b border-border/60">
+                                <div>
+                                  <span className="inline-flex items-center rounded-full bg-muted text-foreground/80 text-[10px] font-semibold px-2 py-0.5">Программа</span>
+                                  <h3 className="mt-2 text-xl font-bold text-gray-900">{course.title}</h3>
+                                  {course.result && (
+                                    <p className="text-gray-600 text-sm mt-1">Результат: {course.result}</p>
+                                  )}
+                                </div>
+                                {course.lessons && (
+                                  <span className="shrink-0 inline-flex items-center rounded-full bg-primary text-primary-foreground text-[11px] font-semibold px-3 py-1">
+                                    {course.lessons}
+                                  </span>
+                                )}
+                              </div>
+                              {/* Scrollable content */}
+                              <div className="flex-1 overflow-y-auto p-5 space-y-5">
+                                <div className="overflow-hidden rounded-xl ring-1 ring-border">
+                                  <img src={course.cover} alt={course.title} className="w-full h-28 object-cover" loading="eager" />
+                                </div>
+                                {course.skills?.length ? (
+                                  <div className="flex flex-wrap gap-2">
+                                    {course.skills.slice(0, 6).map((s, i) => (
+                                      <span key={i} className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-[11px] text-muted-foreground">
+                                        {s}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : null}
+                                {/* Structured description block */}
+                                {course.subtitle || course.difficulty || course.duration || course.tools?.length || course.summary ? (
+                                  <div className="space-y-3 text-sm text-gray-700">
+                                   
+                                    {course.difficulty && (
+                                      <div className="flex items-center gap-2">
+                                        <Gauge className="w-4 h-4 text-primary" />
+                                        <div>Сложность: <span className="font-medium">{course.difficulty}</span></div>
+                                      </div>
+                                    )}
+                                    {course.duration && (
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="w-4 h-4 text-primary" />
+                                        <div>Длительность: <span className="font-medium">{course.duration}</span></div>
+                                      </div>
+                                    )}
+                                    {course.tools?.length ? (
+                                      <div className="flex items-center gap-2">
+                                        <Wrench className="w-4 h-4 text-primary" />
+                                        <div>Инструменты: <span className="font-medium">{course.tools.join(", ")}</span></div>
+                                      </div>
+                                    ) : null}
+                                    {course.summary && <p className="leading-relaxed">{course.summary}</p>}
+                                  </div>
+                                ) : null}
+                                <div className="pt-2">
+                                  <h4 className="text-base font-semibold text-gray-900 mb-3">Программа:</h4>
+                                  <ol className="pl-5 space-y-2 text-base leading-relaxed text-gray-800 list-decimal">
+                                    {course.program?.map((item, idx) => (
+                                      <li key={idx}>{item}</li>
+                                    ))}
+                                  </ol>
+                                </div>
+                              </div>
+                              {/* Footer (not scrollable) */}
+                              <div className="p-5 pt-3 border-t border-border/60 w-full flex items-center justify-end gap-3">
+                                <DrawerClose asChild>
+                                  <Button className="w-full" variant="outline">Закрыть</Button>
+                                </DrawerClose>
+                                <Button className="w-full" asChild>
+                                  <a href={getBotUrl((course as any).slug)}>
+                                    Купить подписку
+                                  </a>
+                                </Button>
+                              </div>
+                            </div>
+                          </DrawerContent>
+                        </Drawer>
+                  </div>
                   
-                  <div className="flex items-center gap-2 text-sm font-semibold text-primary mt-4 pt-4 border-t border-gray-200">
-                    
-                    Результат: {course.result}
+                      {/* Desktop: right sheet */}
+                      <div className="hidden sm:block">
+                        <Sheet>
+                          <SheetTrigger asChild>
+                            <Button variant="outline" className="w-full">Программа</Button>
+                          </SheetTrigger>
+                          <SheetContent side="right" className="p-0 w-full sm:max-w-xl md:max-w-2xl">
+                            <div className="flex h-full flex-col">
+                              {/* Header (not scrollable) */}
+                              <div className="p-6 md:p-8 pb-4 flex items-start justify-between gap-3 border-b border-border/60">
+                                <div>
+                                  <span className="inline-flex items-center rounded-full bg-muted text-foreground/80 text-xs font-semibold px-2 py-0.5">Программа</span>
+                                  <h3 className="mt-2 text-2xl md:text-3xl font-bold text-gray-900">{course.title}</h3>
+                                  {course.result && (
+                                    <p className="text-gray-600 text-sm mt-1">Результат: {course.result}</p>
+                                  )}
+                                </div>
+                                {course.lessons && (
+                                  <span className="shrink-0 inline-flex items-center rounded-full bg-primary text-primary-foreground text-xs font-semibold px-3 py-1">
+                                    {course.lessons}
+                                  </span>
+                                )}
+                              </div>
+                              {/* Scrollable content */}
+                              <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+                                <div className="overflow-hidden rounded-2xl ring-1 ring-border">
+                                  <img src={course.cover} alt={course.title} className="w-full h-52 md:h-60 object-cover" loading="eager" />
+                                </div>
+                                {course.skills?.length ? (
+                                  <div className="flex flex-wrap gap-2">
+                                    {course.skills.slice(0, 8).map((s, i) => (
+                                      <span key={i} className="inline-flex items-center rounded-full border border-border bg-muted/40 px-3 py-1 text-xs text-muted-foreground">
+                                        {s}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : null}
+                                {course.subtitle || course.difficulty || course.duration || course.tools?.length || course.summary ? (
+                                  <div className="space-y-3 text-sm md:text-base text-gray-700">
+                                   
+                                    {course.difficulty && (
+                                      <div className="flex items-center gap-2">
+                                        <Gauge className="w-4 h-4 text-primary" />
+                                        <div>Сложность: <span className="font-medium">{course.difficulty}</span></div>
+                                      </div>
+                                    )}
+                                    {course.duration && (
+                                      <div className="flex items-center gap-2">
+                                        <Clock className="w-4 h-4 text-primary" />
+                                        <div>Длительность: <span className="font-medium">{course.duration}</span></div>
+                                      </div>
+                                    )}
+                                    {course.tools?.length ? (
+                                      <div className="flex items-center gap-2">
+                                        <Wrench className="w-4 h-4 text-primary" />
+                                        <div>Инструменты: <span className="font-medium">{course.tools.join(", ")}</span></div>
+                                      </div>
+                                    ) : null}
+                                    {course.summary && <p className="leading-relaxed">{course.summary}</p>}
+                                  </div>
+                                ) : null}
+                                <div className="pt-2">
+                                  <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-3">Программа:</h4>
+                                  <ol className="pl-5 space-y-2 text-base md:text-lg leading-relaxed text-gray-800 list-decimal">
+                                    {course.program?.map((item, idx) => (
+                                      <li key={idx}>{item}</li>
+                                    ))}
+                                  </ol>
+                                </div>
+                              </div>
+                              {/* Footer (not scrollable) */}
+                              <div className="p-6 md:p-8 pt-4 border-t border-border/60 flex items-center justify-end gap-3">
+                                <SheetClose asChild>
+                                  <Button variant="outline">Закрыть</Button>
+                                </SheetClose>
+                                <Button asChild>
+                                  <a href={getBotUrl((course as any).slug)}>Купить подписку</a>
+                                </Button>
+                              </div>
+                            </div>
+                          </SheetContent>
+                        </Sheet>
+                      </div>
+                      <Button className="w-full" asChild>
+                        <a href={getBotUrl((course as any).slug)}>
+                          Купить подписку
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -219,12 +301,21 @@ const Courses = () => {
                       ))}
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-2 text-sm font-semibold text-gray-500 mt-4 pt-4 border-t border-gray-200">
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-2 text-sm font-semibold text-gray-500 mb-4">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                     </svg>
                     Результат: {course.result}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button variant="outline" className="w-full" disabled>
+                        Программа
+                      </Button>
+                      <Button className="w-full" disabled>
+                        Купить подписку
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

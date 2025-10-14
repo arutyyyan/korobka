@@ -3,6 +3,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { getBotUrl } from "@/lib/utils";
 import { useState } from "react";
 import saleImage from "@/assets/30sale.webp";
+import blueBoxIcon from "@/assets/blue_box_icon.webp";
+import { Play, Volume2, Settings, Maximize } from "lucide-react";
 const Hero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -18,94 +20,7 @@ const Hero = () => {
       {/* Minimal Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
 
-      {/* AI Tools Background */}
-      <div className="absolute inset-0 opacity-[0.15] pointer-events-none">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 md:gap-8 lg:gap-12 max-w-6xl mx-auto px-8">
-            {/* Popular AI Tools */}
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-green-500/30 to-green-600/30 border border-green-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-green-300 shadow-lg backdrop-blur-sm">
-                GPT
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-orange-500/30 to-orange-600/30 border border-orange-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-orange-300 shadow-lg backdrop-blur-sm">
-                Claude
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-purple-500/30 to-purple-600/30 border border-purple-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-purple-300 shadow-lg backdrop-blur-sm">
-                MJ
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-blue-500/30 to-blue-600/30 border border-blue-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-blue-300 shadow-lg backdrop-blur-sm">
-                Коробка
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-pink-500/30 to-pink-600/30 border border-pink-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-pink-300 shadow-lg backdrop-blur-sm">
-                Runway
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-cyan-500/30 to-cyan-600/30 border border-cyan-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-cyan-300 shadow-lg backdrop-blur-sm">
-                Pika
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-red-500/30 to-red-600/30 border border-red-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-red-300 shadow-lg backdrop-blur-sm">
-                Sora
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-indigo-500/30 to-indigo-600/30 border border-indigo-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-indigo-300 shadow-lg backdrop-blur-sm">
-                Gemini
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-teal-500/30 to-teal-600/30 border border-teal-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-teal-300 shadow-lg backdrop-blur-sm">
-                Make
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-yellow-500/30 to-yellow-600/30 border border-yellow-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-yellow-300 shadow-lg backdrop-blur-sm">
-                Zapier
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-emerald-500/30 to-emerald-600/30 border border-emerald-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-emerald-300 shadow-lg backdrop-blur-sm">
-                Perplexity
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-violet-500/30 to-violet-600/30 border border-violet-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-violet-300 shadow-lg backdrop-blur-sm">
-                DALL-E
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-rose-500/30 to-rose-600/30 border border-rose-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-rose-300 shadow-lg backdrop-blur-sm">
-                Framer
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-amber-500/30 to-amber-600/30 border border-amber-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-amber-300 shadow-lg backdrop-blur-sm">
-                Bolt
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-lime-500/30 to-lime-600/30 border border-lime-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-lime-300 shadow-lg backdrop-blur-sm">
-                ElevenLabs
-              </div>
-            </div>
-            <div className="flex items-center justify-center">
-              <div className="w-14 h-14 md:w-18 md:h-18 rounded-xl bg-gradient-to-br from-sky-500/30 to-sky-600/30 border border-sky-500/20 flex items-center justify-center text-xs md:text-sm font-bold text-sky-300 shadow-lg backdrop-blur-sm">
-                Align Code
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
       {/* Subtle accent lines */}
       <div className="absolute top-1/4 left-0 w-32 h-px bg-gradient-to-r from-primary/50 to-transparent" />
@@ -131,19 +46,19 @@ const Hero = () => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-8">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[0.9] tracking-tight mb-6">
             <span className="block text-foreground">Все ИИ-навыки</span>
             <span className="block gradient-text">в одном месте</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xl sm:text-2xl text-muted-foreground max-w-xl mx-auto mb-12 leading-relaxed">
+          <p className="text-xl sm:text-2xl text-muted-foreground max-w-xl mx-auto mb-8 leading-relaxed">
             Одна подписка на все актуальные знания по нейросетям и
             AI-инструментам
           </p>
 
           {/* CTA Section */}
-          <div className="flex flex-col  items-center justify-center gap-4 mb-16">
+          {/* <div className="flex flex-col  items-center justify-center gap-4 mb-6">
             <Button
               size="lg"
               variant="hero"
@@ -178,24 +93,67 @@ const Hero = () => {
               </svg>
               <span>20€/мес • Можно отменить в любой момент</span>
             </div>
-          </div>
+          </div> */}
 
-          {/* Free Lesson Image */}
+          {/* Free Lesson Card */}
           <div className="relative max-w-4xl mx-auto mb-16">
+
             <div
-              className="cursor-pointer group relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]"
+              className="group relative bg-white border border-border rounded-3xl p-2  md:p-3 hover:shadow-2xl transition-all duration-300 cursor-pointer w-full"
               onClick={handleFreeLessonClick}
             >
-              <img
-                src="/free_lesson.webp"
-                alt="Бесплатный пробный урок"
-                className="w-full h-auto object-cover"
-              />
-
-              {/* Free Lesson Badge */}
-              <div className="absolute top-4 left-4 bg-white text-black px-3 py-1 rounded-full text-sm font-semibold border border-gray-200">
-                Вводный урок
+              <div className=" w-full">
+                {/* <div className="flex items-center justify-center sm:justify-start gap-2">
+                  <Play className="w-5 h-5 text-primary" />
+                  <h3 className="text-xl font-semibold tracking-tight">Вводный видеоурок</h3>
+                </div> */}
+                
+              
               </div>
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src="/free_lesson.webp"
+                  alt="Бесплатный пробный урок"
+                  className="w-full h-auto object-cover"
+                />
+
+                {/* Free Lesson Badge */}
+                <div className="absolute top-4 left-4 bg-white text-black px-3 py-1 rounded-full text-sm font-semibold border border-gray-200">
+                  Вводный урок
+                </div>
+
+                {/* Duration Chip */}
+                <div className="absolute top-4 right-4 bg-black/70 text-white text-xs font-medium px-2 py-1 rounded-md shadow">
+                  12:03
+                </div>
+
+               
+                {/* Bottom Controls Bar */}
+                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+                  {/* Progress Bar */}
+                  <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
+                    <div className="h-full w-1/3 bg-primary rounded-full" />
+                  </div>
+                  {/* Controls Row */}
+                  <div className="mt-2 flex items-center justify-between text-white">
+                    <div className="text-xs sm:text-sm font-medium">0:00 / 12:03</div>
+                    <div className="flex items-center gap-3 opacity-90">
+                      {/* Volume */}
+                      <Volume2 className="w-5 h-5" />
+                      {/* Settings */}
+                      <Settings className="w-5 h-5" />
+                      {/* Fullscreen */}
+                      <Maximize className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p className="w-full mt-2 px-3  text-sm sm:text-base text-muted-foreground text-center">
+                  Посмотрите первый урок по основам ChatGPT и решите, подходит ли вам формат обучения
+                </p>
+
+              
             </div>
           </div>
 
@@ -215,86 +173,56 @@ const Hero = () => {
             </DialogContent>
           </Dialog>
 
-          {/* Stats Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {/* Course Card */}
-            <div className="bg-white rounded-3xl p-4 border border-gray-100">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
+          {/* Call to Action Block */}
+          <div className="bg-white rounded-3xl border border-gray-100  max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              {/* Left Side - Text and Buttons */}
+              <div className="md:p-10 p-6">
+                <h2 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 text-left">
+                  Понравился урок?
+                </h2>
+                <p className="text-lg text-gray-700 mb-6 leading-relaxed text-left">
+                  Оформи подписку на обучение по всем направлениям ИИ: ChatGPT, Вайб-кодинг, Make, Bolt, Sora
+                </p>
+
+                {/* Price */}
+                <div className="mb-10 text-left">
+                  <span className="text-lg font-semibold ext-left">Цена: 20€/месяц</span>
                 </div>
-                <div className="text-left">
-                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">
-                    100+{" "}
-                  </h3>
-                  <p className="text-sm text-gray-600">практических уроков</p>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    size="lg"
+                    className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
+                    onClick={handleClick}
+                  >
+                    Купить подписку
+                  </Button>
+                  
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="border-gray-300 text-primary  bg-gray-100 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
+                    onClick={() => {
+                      const coursesSection = document.getElementById('courses');
+                      if (coursesSection) {
+                        coursesSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                  >
+                    Программа курсов
+                  </Button>
                 </div>
               </div>
-            </div>
 
-            {/* Access Card */}
-            <div className="bg-white rounded-3xl p-4 border border-gray-100">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl text-left font-bold text-gray-900 mb-1">
-                    Еженедельно
-                  </h3>
-                  <p className="text-sm text-gray-600">выходят новые уроки</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Support Card */}
-            <div className="bg-white rounded-3xl p-4 border border-gray-100">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-xl  text-left font-bold text-gray-900 mb-1">
-                    24/7 поддержка
-                  </h3>
-                  <p className="text-sm text-gray-600">сообщества экспертов</p>
-                </div>
+              {/* Right Side - Image */}
+              <div className="flex justify-center lg:justify-end md:mt-[-50px]   md:mr-[-50px]">
+                <img 
+                  src={blueBoxIcon} 
+                  alt="Korobka Logo" 
+                  className=" object-contain"
+                />
               </div>
             </div>
           </div>
