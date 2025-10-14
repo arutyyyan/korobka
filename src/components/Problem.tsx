@@ -341,7 +341,7 @@ const Problem = () => {
                     onClick={handleClick}
                     className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-4 rounded-2xl transition-colors shadow-lg"
                   >
-                    Начать обучение
+                    Начать обучаться ИИ
                   </button>
                 </div>
               </div>
