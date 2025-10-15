@@ -45,7 +45,7 @@ const CommunityBlock = () => {
                   className="bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 h-auto font-semibold rounded-2xl transition-colors"
                   onClick={handleClick}
                 >
-                  Подключить подписку
+                  Присоединиться к Коробке
                 </Button>
               </div>
             </div>
