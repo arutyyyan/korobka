@@ -339,9 +339,9 @@ const Problem = () => {
 
                   <button
                     onClick={handleClick}
-                    className="bg-white text-primary hover:bg-white/90 font-semibold px-6 py-4 rounded-2xl transition-colors shadow-lg"
+                    className="bg-white text-primary  font-semibold px-6 py-4 rounded-2xl transition-colors transition-transform hover:-translate-y-1 shadow-lg"
                   >
-                    Разблокировать все курсы за 20€/мес
+                    Разблокировать все курсы за 20€
                   </button>
                 </div>
               </div>

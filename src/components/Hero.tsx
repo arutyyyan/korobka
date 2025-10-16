@@ -20,8 +20,6 @@ const Hero = () => {
       {/* Minimal Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/30" />
 
-     
-
       {/* Subtle accent lines */}
       <div className="absolute top-1/4 left-0 w-32 h-px bg-gradient-to-r from-primary/50 to-transparent" />
       <div className="absolute bottom-1/4 right-0 w-48 h-px bg-gradient-to-l from-secondary/50 to-transparent" />
@@ -31,11 +29,10 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto text-center">
           {/* Special Offer Badge */}
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-full border border-primary/20 px-1 py-1 text-sm mb-8 hover:border-primary/40 transition-colors relative overflow-visible">
-            <img 
-              src={saleImage} 
-              alt="30% Sale" 
+            <img
+              src={saleImage}
+              alt="30% Sale"
               className="w-10 h-10 mt-[-15px] object-contain animate-bounce"
-              
             />
             <span className="text-primary font-medium">
               Промокод на скидку внизу
@@ -97,7 +94,6 @@ const Hero = () => {
 
           {/* Free Lesson Card */}
           <div className="relative max-w-4xl mx-auto mb-16">
-
             <div
               className="group relative bg-white border border-border rounded-3xl p-2  md:p-3 hover:shadow-2xl transition-all duration-300 cursor-pointer w-full"
               onClick={handleFreeLessonClick}
@@ -107,8 +103,6 @@ const Hero = () => {
                   <Play className="w-5 h-5 text-primary" />
                   <h3 className="text-xl font-semibold tracking-tight">Вводный видеоурок</h3>
                 </div> */}
-                
-              
               </div>
               <div className="relative overflow-hidden rounded-2xl">
                 <img
@@ -127,7 +121,6 @@ const Hero = () => {
                   12:03
                 </div>
 
-               
                 {/* Bottom Controls Bar */}
                 <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
                   {/* Progress Bar */}
@@ -136,7 +129,9 @@ const Hero = () => {
                   </div>
                   {/* Controls Row */}
                   <div className="mt-2 flex items-center justify-between text-white">
-                    <div className="text-xs sm:text-sm font-medium">0:00 / 12:03</div>
+                    <div className="text-xs sm:text-sm font-medium">
+                      0:00 / 12:03
+                    </div>
                     <div className="flex items-center gap-3 opacity-90">
                       {/* Volume */}
                       <Volume2 className="w-5 h-5" />
@@ -150,10 +145,9 @@ const Hero = () => {
               </div>
 
               <p className="w-full mt-2 px-3  text-sm sm:text-base text-muted-foreground text-center">
-                  Посмотрите первый урок по основам ChatGPT и решите, подходит ли вам формат обучения
-                </p>
-
-              
+                Посмотрите первый урок по основам ChatGPT и решите, подходит ли
+                вам формат обучения
+              </p>
             </div>
           </div>
 
@@ -182,32 +176,35 @@ const Hero = () => {
                   Понравился урок?
                 </h2>
                 <p className="text-lg text-gray-700 mb-6 leading-relaxed text-left">
-                  Оформи подписку на обучение по всем направлениям ИИ: ChatGPT, Вайб-кодинг, Make, Bolt, Sora
+                  Оформи подписку на обучение по всем направлениям ИИ: ChatGPT,
+                  Вайб-кодинг, Make, Bolt, Sora
                 </p>
 
                 {/* Price */}
                 <div className="mb-10 text-left">
-                  <span className="text-lg font-semibold ext-left">Цена: 20€/месяц</span>
+                  <span className="text-lg font-semibold ext-left">
+                    Цена: 20€/месяц
+                  </span>
                 </div>
 
                 {/* Action Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
+                    className="bg-primary text-white hover:bg-primary/20 hover:text-primary/90 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
                     onClick={handleClick}
                   >
-                    Оформить подписку
+                    Перейти в Коробку
                   </Button>
-                  
+
                   <Button
                     size="lg"
                     variant="secondary"
-                    className="border-gray-300 text-primary  bg-gray-100 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl"
+                    className="border-gray-300 text-primary  bg-gray-100 text-lg px-8 py-4 h-auto min-w-[200px] font-semibold rounded-xl  hover:text-white"
                     onClick={() => {
-                      const coursesSection = document.getElementById('courses');
+                      const coursesSection = document.getElementById("courses");
                       if (coursesSection) {
-                        coursesSection.scrollIntoView({ behavior: 'smooth' });
+                        coursesSection.scrollIntoView({ behavior: "smooth" });
                       }
                     }}
                   >
@@ -218,15 +215,14 @@ const Hero = () => {
 
               {/* Right Side - Image */}
               <div className="flex justify-center lg:justify-end md:mt-[-50px]   md:mr-[-50px]">
-                <img 
-                  src={blueBoxIcon} 
-                  alt="Korobka Logo" 
+                <img
+                  src={blueBoxIcon}
+                  alt="Korobka Logo"
                   className=" object-contain"
                 />
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
