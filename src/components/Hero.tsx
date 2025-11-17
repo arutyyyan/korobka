@@ -1,19 +1,54 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { getBotUrl } from "@/lib/utils";
 import { useState } from "react";
 import saleImage from "@/assets/30sale.webp";
 import blueBoxIcon from "@/assets/blue_box_icon.webp";
-import { Play, Volume2, Settings, Maximize } from "lucide-react";
+
+interface LessonTopic {
+  id: string;
+  title: string;
+  videoId: string;
+  description: string;
+}
+
+const lessonTopics: LessonTopic[] = [
+  {
+    id: "chatgpt",
+    title: "ChatGPT",
+    videoId: "AGF1k0tqitc",
+    description: "Основы работы с ChatGPT для контента",
+  },
+  {
+    id: "ai-avatars",
+    title: "ИИ-аватары",
+    videoId: "g7TGE3xaf7Y",
+    description: "Создание аватаров с помощью ИИ",
+  },
+  {
+    id: "lovable",
+    title: "Lovable",
+    videoId: "OIRrBDkbn9Q",
+    description: "Разработка с помощью Lovable",
+  },
+  {
+    id: "cursor",
+    title: "Cursor",
+    videoId: "DuveCRW1CCw",
+    description: "Работа с Cursor для разработки",
+  },
+  {
+    id: "make",
+    title: "Make автоматизация",
+    videoId: "sCjRh4G1vDI",
+    description: "Автоматизация процессов с Make",
+  },
+];
+
 const Hero = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTopic, setSelectedTopic] = useState<LessonTopic>(lessonTopics[0]);
 
   const handleClick = () => {
     window.open(getBotUrl(), "_blank");
-  };
-
-  const handleFreeLessonClick = () => {
-    setIsModalOpen(true);
   };
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -54,118 +89,49 @@ const Hero = () => {
             AI-инструментам
           </p>
 
-          {/* CTA Section */}
-          {/* <div className="flex flex-col  items-center justify-center gap-4 mb-6">
-            <Button
-              size="lg"
-              variant="hero"
-              className="text-lg px-8 py-4 h-auto min-w-[280px] font-semibold group"
-              onClick={handleClick}
-            >
-              <span className="flex items-center gap-3">
-                <span>Начать обучение</span>
-                <svg
-                  className="w-5 h-5 group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </span>
-            </Button>
-
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              <span>20€/мес • Можно отменить в любой момент</span>
-            </div>
-          </div> */}
-
-          {/* Free Lesson Card */}
-          <div className="relative max-w-4xl mx-auto mb-16">
-            <div
-              className="group relative bg-white border border-border rounded-3xl p-2  md:p-3 hover:shadow-2xl transition-all duration-300 cursor-pointer w-full"
-              onClick={handleFreeLessonClick}
-            >
-              <div className=" w-full">
-                {/* <div className="flex items-center justify-center sm:justify-start gap-2">
-                  <Play className="w-5 h-5 text-primary" />
-                  <h3 className="text-xl font-semibold tracking-tight">Вводный видеоурок</h3>
-                </div> */}
+          {/* Free Lesson Section with Tabs */}
+          <div className="relative max-w-5xl mx-auto mb-16">
+            {/* Tabs - Horizontal scroll on mobile */}
+            <div className="mb-6 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap sm:justify-center pb-2">
+                {lessonTopics.map((topic) => (
+                  <button
+                    key={topic.id}
+                    onClick={() => setSelectedTopic(topic)}
+                    className={`flex-shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-200 whitespace-nowrap ${
+                      selectedTopic.id === topic.id
+                        ? "bg-primary text-white shadow-lg shadow-primary/30"
+                        : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
+                    }`}
+                  >
+                    {topic.title}
+                  </button>
+                ))}
               </div>
-              <div className="relative overflow-hidden rounded-2xl">
-                <img
-                  src="/free_lesson.webp"
-                  alt="Бесплатный пробный урок"
-                  className="w-full h-auto object-cover"
-                />
-
-                {/* Free Lesson Badge */}
-                <div className="absolute top-4 left-4 bg-white text-black px-3 py-1 rounded-full text-sm font-semibold border border-gray-200">
-                  Вводный урок
-                </div>
-
-                {/* Duration Chip */}
-                <div className="absolute top-4 right-4 bg-black/70 text-white text-xs font-medium px-2 py-1 rounded-md shadow">
-                  12:03
-                </div>
-
-                {/* Bottom Controls Bar */}
-                <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
-                  {/* Progress Bar */}
-                  <div className="w-full h-1.5 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full w-1/3 bg-primary rounded-full" />
-                  </div>
-                  {/* Controls Row */}
-                  <div className="mt-2 flex items-center justify-between text-white">
-                    <div className="text-xs sm:text-sm font-medium">
-                      0:00 / 12:03
-                    </div>
-                    <div className="flex items-center gap-3 opacity-90">
-                      {/* Volume */}
-                      <Volume2 className="w-5 h-5" />
-                      {/* Settings */}
-                      <Settings className="w-5 h-5" />
-                      {/* Fullscreen */}
-                      <Maximize className="w-5 h-5" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <p className="w-full mt-2 px-3  text-sm sm:text-base text-muted-foreground text-center">
-                Посмотрите первый урок по основам ChatGPT и решите, подходит ли
-                вам формат обучения
-              </p>
             </div>
-          </div>
 
-          {/* YouTube Video Modal */}
-          <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-            <DialogContent className="max-w-4xl w-full p-0 bg-black border-0">
-              <div className="aspect-video bg-black rounded-lg overflow-hidden">
+            {/* Video Player */}
+            <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
+              <div className="aspect-video bg-black rounded-xl overflow-hidden">
                 <iframe
-                  src="https://www.youtube.com/embed/AGF1k0tqitc"
-                  title="ChatGPT для контента - Как сделать контент-план за 5 минут"
+                  src={`https://www.youtube.com/embed/${selectedTopic.videoId}`}
+                  title={selectedTopic.title}
                   className="w-full h-full"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
-            </DialogContent>
-          </Dialog>
+              <div className="mt-3 px-2">
+                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                  {selectedTopic.title}
+                </h3>
+                <p className="text-sm text-gray-600">
+                  {selectedTopic.description}
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* Call to Action Block */}
           <div className="bg-white rounded-3xl border border-gray-100  max-w-5xl mx-auto">

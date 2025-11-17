@@ -76,4 +76,13 @@ All colors MUST be HSL.
   .glow {
     box-shadow: var(--glow-primary);
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
