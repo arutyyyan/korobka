@@ -104,7 +104,7 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <AuthButton />
+            {/* <AuthButton /> */}
             <Button
               variant="hero"
               size="sm"
