@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import Courses from "@/components/Courses";
@@ -10,11 +9,29 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import Reviews from "@/components/Reviews";
 import CommunityBlock from "@/components/CommunityBlock";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const state = location.state as { sectionId?: string } | null;
+    if (state?.sectionId) {
+      const sectionId = state.sectionId;
+      requestAnimationFrame(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      });
+      navigate(location.pathname, { replace: true, state: {} });
+    }
+  }, [location, navigate]);
+
   return (
     <div className="min-h-screen">
-      <Header />
       <Hero />
       
       <Problem />

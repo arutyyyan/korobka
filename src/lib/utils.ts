@@ -30,3 +30,27 @@ export function getBotUrl(courseSlug?: string): string {
   return "https://t.me/korobka_align_bot?start=start";
   // return "https://t.me/tribute/app?startapp=sC9M";
 }
+
+export const COURSE_LEVEL_LABELS = {
+  beginner: "Начальный",
+  intermediate: "Средний",
+  advanced: "Продвинутый",
+} as const;
+
+export type CourseLevelKey = keyof typeof COURSE_LEVEL_LABELS;
+
+export const formatDate = (value: string | null | undefined, locale = "ru-RU") => {
+  if (!value) {
+    return "—";
+  }
+
+  try {
+    return new Intl.DateTimeFormat(locale, {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    }).format(new Date(value));
+  } catch {
+    return value;
+  }
+};

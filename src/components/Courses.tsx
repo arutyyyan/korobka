@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
+import { Info, Gauge, Clock, Wrench, BookOpenText } from "lucide-react";
+
 import logoBox from "@/assets/logo-box.png";
-import { availableCourses, upcomingCourses } from "@/config/courses";
+import { upcomingCourses } from "@/config/courses";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -13,12 +16,16 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
-import { Info, Gauge, Clock, Wrench, BookOpenText } from "lucide-react";
-import { getBotUrl } from "@/lib/utils";
+import { useCourseEnrollment } from "@/hooks/use-course-enrollment";
+import { useCourses } from "@/hooks/use-courses";
 
 const Courses = () => {
+  const { openEnrollment, enrollmentDialog, isEnrolled, enrollmentLoading } = useCourseEnrollment();
+  const { data: availableCourses = [] } = useCourses();
+
   return (
-    <section className="py-8 pb-0 px-4">
+    <>
+      <section className="py-8 pb-0 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
@@ -57,11 +64,14 @@ const Courses = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {availableCourses.map((course, index) => (
-              <div
-                key={index}
-                className="bg-[#fafafa] rounded-3xl overflow-hidden border border-gray-200 flex flex-col h-full"
-              >
+            {availableCourses.map((course, index) => {
+              const enrolled = isEnrolled(course);
+              const isEnrollDisabled = Boolean(enrollmentLoading && !enrolled);
+              return (
+                <div
+                  key={index}
+                  className="bg-[#fafafa] rounded-3xl overflow-hidden border border-gray-200 flex flex-col h-full"
+                >
                 {/* Course Cover */}
                 <div className="h-32 bg-gradient-to-br from-primary/20 to-primary/10 relative">
                   <img
@@ -230,11 +240,11 @@ const Courses = () => {
                                     Закрыть
                                   </Button>
                                 </DrawerClose>
-                                <Button className="w-full" asChild>
-                                  <a href={getBotUrl((course as any).slug)}>
-                                    Начать обучаться сейчас
-                                  </a>
-                                </Button>
+                                <DrawerClose asChild>
+                                  <Button className="w-full" onClick={() => openEnrollment(course)}>
+                                    {enrolled ? "Продолжить обучение" : "Записаться"}
+                                  </Button>
+                                </DrawerClose>
                               </div>
                             </div>
                           </DrawerContent>
@@ -359,26 +369,39 @@ const Courses = () => {
                                 <SheetClose asChild>
                                   <Button variant="outline">Закрыть</Button>
                                 </SheetClose>
-                                <Button asChild>
-                                  <a href={getBotUrl((course as any).slug)}>
-                                    Начать ИИ-обучение
-                                  </a>
-                                </Button>
+                                <SheetClose asChild>
+                                  <Button onClick={() => openEnrollment(course)}>
+                                    {enrolled ? "Продолжить обучение" : "Записаться"}
+                                  </Button>
+                                </SheetClose>
                               </div>
                             </div>
                           </SheetContent>
                         </Sheet>
                       </div>
-                      <Button className="w-full" asChild>
-                        <a href={getBotUrl((course as any).slug)}>
-                          Начать обучение
-                        </a>
-                      </Button>
+                      <div className="space-y-1">
+                        <Button
+                          className="w-full"
+                          onClick={() => openEnrollment(course)}
+                          disabled={isEnrollDisabled}
+                        >
+                          {enrolled ? "Продолжить обучение" : "Записаться"}
+                        </Button>
+                        {enrolled ? (
+                          <p className="text-xs text-emerald-600 text-center">Уже в «Моём обучении»</p>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/courses">Открыть весь каталог</Link>
+            </Button>
           </div>
         </div>
 
@@ -418,9 +441,9 @@ const Courses = () => {
                     alt={course.title}
                     className="w-full h-full object-cover grayscale"
                   />
-                  {(course as any).lessons && (
+                  {course.lessons && (
                     <div className="absolute top-3 right-3 text-xs text-white bg-black/20 px-2 py-1 rounded-full backdrop-blur-sm">
-                      {(course as any).lessons}
+                      {course.lessons}
                     </div>
                   )}
                   <div className="absolute top-3 left-3 text-xs text-white bg-primary px-2 py-1 rounded-full">
@@ -493,7 +516,9 @@ const Courses = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+      {enrollmentDialog}
+    </>
   );
 };
 

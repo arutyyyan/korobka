@@ -3,16 +3,46 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import logoBox from "@/assets/logo-box.png";
 import { getBotUrl } from "@/lib/utils";
+import AuthButton from "@/components/Auth/AuthButton";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+
+type NavItem =
+  | {
+      label: string;
+      type: "section";
+      id: string;
+    }
+  | {
+      label: string;
+      type: "route";
+      path: string;
+    };
+
+const navItems: NavItem[] = [
+  { label: "Главная", type: "route", path: "/" },
+  { label: "Каталог курсов", type: "route", path: "/courses" },
+  { label: "Курсы", type: "section", id: "courses" },
+  { label: "Цены", type: "section", id: "pricing" },
+  { label: "FAQ", type: "section", id: "faq" },
+  { label: "Поддержка", type: "route", path: "/refund" },
+];
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     window.open(getBotUrl(), "_blank");
     setIsOpen(false);
   };
 
-  const scrollToSection = (sectionId: string) => {
+  const handleSectionNavigation = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/", { state: { sectionId } });
+      setIsOpen(false);
+      return;
+    }
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -20,11 +50,42 @@ const Header = () => {
     setIsOpen(false);
   };
 
-  const navItems = [
-    { label: "Курсы", id: "courses" },
-    { label: "Цены", id: "pricing" },
-    { label: "FAQ", id: "faq" },
-  ];
+  const renderNavItem = (item: NavItem, variant: "desktop" | "mobile") => {
+    const baseStyles =
+      variant === "desktop"
+        ? "text-sm font-medium transition-colors"
+        : "text-left text-lg font-medium transition-colors py-2";
+
+    if (item.type === "route") {
+      return (
+        <NavLink
+          key={item.label}
+          to={item.path}
+          onClick={() => setIsOpen(false)}
+          className={({ isActive }) =>
+            [
+              baseStyles,
+              isActive
+                ? "text-primary"
+                : "text-muted-foreground hover:text-primary",
+            ].join(" ")
+          }
+        >
+          {item.label}
+        </NavLink>
+      );
+    }
+
+    return (
+      <button
+        key={item.id}
+        onClick={() => handleSectionNavigation(item.id)}
+        className={`${baseStyles} text-muted-foreground hover:text-primary`}
+      >
+        {item.label}
+      </button>
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -38,19 +99,12 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => renderNavItem(item, "desktop"))}
           </nav>
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <AuthButton />
             <Button
               variant="hero"
               size="sm"
@@ -93,19 +147,12 @@ const Header = () => {
 
                 {/* Mobile Navigation */}
                 <nav className="flex flex-col gap-6 mb-8">
-                  {navItems.map((item) => (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className="text-left text-lg font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                  {navItems.map((item) => renderNavItem(item, "mobile"))}
                 </nav>
 
                 {/* Mobile CTA */}
                 <div className="mt-auto">
+                  {/* <AuthButton variant="outline" size="lg" fullWidth className="mb-3" /> */}
                   <Button
                     variant="hero"
                     size="lg"
