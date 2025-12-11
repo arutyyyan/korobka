@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useYandexMetrica } from "@/hooks/use-yandex-metrica";
 import Index from "./pages/Index";
+import Start from "./pages/Start";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -34,6 +35,9 @@ const AppContent = () => {
     <>
       <AuthRedirect />
       <Routes>
+      {/* Standalone start page for warm leads */}
+      <Route path="/start" element={<Start />} />
+
       {/* Public routes with landing header */}
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Index />} />

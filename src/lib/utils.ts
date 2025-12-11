@@ -27,7 +27,7 @@ export function getBotUrl(courseSlug?: string): string {
   // }
 
   // return `${baseUrl}?start=landing`;
-  return "https://t.me/korobka_align_bot?start=start";
+  return "https://t.me/tribute/app?startapp=sC9M";
   // return "https://t.me/tribute/app?startapp=sC9M";
 }
 

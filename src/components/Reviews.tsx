@@ -10,8 +10,11 @@ import r5 from "@/assets/reviews/review5.jpeg";
 import r6 from "@/assets/reviews/review6.jpeg";
 import r7 from "@/assets/reviews/review7.jpeg";
 import r8 from "@/assets/reviews/review8.jpeg";
+import r9 from "@/assets/reviews/review9.jpg";
+import r10 from "@/assets/reviews/review10.jpg";
+import r11 from "@/assets/reviews/review11.jpg";
 
-const reviewImages = [r1, r2, r3, r4, r5, r6, r7, r8];
+const reviewImages = [r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11];
 
 const Reviews = () => {
   return (
