@@ -42,7 +42,14 @@ const CommunityBlock = () => {
               <div className="pt-2">
                 <Button
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 h-auto font-semibold rounded-2xl transition-colors"
+                  className="bg-primary hover:bg-primary/90 text-white text-lg px-8 py-4 h-auto font-semibold rounded-2xl transition-colors border-0"
+                  style={{
+                    boxShadow: "0px 5px 0px 0px rgba(70, 167, 245, 0.15), inset 0px -4px 0px 0px rgba(0, 0, 0, 0.15)",
+                    borderColor: "rgba(0, 0, 0, 0)",
+                    borderImage: "none",
+                    borderWidth: "0px",
+                    borderStyle: "none"
+                  }}
                   onClick={handleClick}
                 >
                   Присоединиться к Коробке

@@ -37,7 +37,7 @@ const Hero2 = () => {
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/30">
       <div className="container relative mx-auto px-4 py-6 sm:py-4 lg:py-6 flex flex-col gap-2 w-full">
-        <div className=" w-full flex justify-between items-center gap-6 lg:grid-cols-2 bg-white rounded-3xl p-2 pb-3 max-w-6xl mx-auto border border-gray-200">
+        <div className="w-full flex justify-between items-center gap-6 bg-white rounded-3xl p-2 pb-3 max-w-6xl mx-auto border border-gray-200">
           <div className="flex items-center gap-2 mt-1 ml-1">
           <img src="logo-box.png" alt="logo" className="w-8 object-contain" />
           <span className="text-xl font-bold">Korobka</span>
@@ -55,7 +55,7 @@ const Hero2 = () => {
             Начать
           </Button>
         </div>
-        <div className="grid items-center gap-6 lg:grid-cols-2 bg-white rounded-3xl p-3 md:p-8 md:px-8 max-w-6xl mx-auto border border-gray-200">
+        <div className="grid items-center gap-6 md:grid-cols-2 bg-white rounded-3xl p-3 md:p-8 md:px-8 max-w-6xl mx-auto border border-gray-200">
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-1 py-1 pr-3 text-sm font-semibold text-primary">
               <div className="flex -space-x-[12px]">
@@ -134,9 +134,9 @@ const Hero2 = () => {
             </div>
           </div>
 
-          <div className="relative flex justify-center lg:justify-end">
+          <div className="relative flex justify-center md:justify-end">
             {/* <div className="absolute -right-6 -top-6 h-16 w-16 rounded-full bg-primary/20 blur-xl" /> */}
-            <div className="relative w-full max-w-sm">
+            <div className="relative w-full max-w-sm mx-auto md:mx-0">
               {/* Progress dots */}
               <div className="mb-4 flex gap-2">
                 {stories.map((_, idx) => (
