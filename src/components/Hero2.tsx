@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { getBotUrl } from "@/lib/utils";
 import { useMemo, useState } from "react";
 import MobileSnapSlider from "./MobileSnapSlider";
+import { CalendarDaysIcon, UserGroupIcon, RocketLaunchIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 
 const Hero2 = () => {
   const stories = useMemo(
@@ -56,32 +57,45 @@ const Hero2 = () => {
         </div>
         <div className="grid items-center gap-6 lg:grid-cols-2 bg-white rounded-3xl p-3 md:p-8 md:px-8 max-w-6xl mx-auto border border-gray-200">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-2 py-1 text-sm font-semibold text-primary">
-              100+ учеников
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-1 py-1 pr-3 text-sm font-semibold text-primary">
+              <div className="flex -space-x-[12px]">
+                {["/av1.jpg", "/av7.jpg", "/av5.jpg", "/av6.jpg", "/av4.jpg"].map((avatar, index) => (
+                  <img
+                    key={index}
+                    src={avatar}
+                    alt="Student"
+                    className="h-7 w-7 rounded-full border-2 border-[#EDF5FE] object-cover bg-white"
+                  />
+                ))}
+              </div>
+              140+ учеников
             </div>
 
             <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-                Начни зарабатывать
-                <span className="block gradient-text">на нейросетях</span>
+              <h1 className="text-[44px] md:text-5xl font-bold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+              Зарабатывай <br/> на нейросетях 
+                <span className="block gradient-text">от $500 в месяц</span>
               </h1>
               <p className="text-lg text-muted-foreground sm:text-xl">
-                Готовые практические уроки, поддержка сообщества.
+              Пошаговое обучение по ИИ. Начни монетизировать навыки уже через неделю. Всего за 20€/месяц
               </p>
             </div>
 
             <div className="flex flex-wrap gap-3">
               {[
-                "Новые уроки каждую неделю",
-                "Поддержка сообщества",
-                "Практика в реальных проектах",
+                { text: "Не рассрочка, можно отменить в любой момент", icon: CheckCircleIcon },
+                { text: "Поддержка сообщества", icon: UserGroupIcon },
+                { text: "Новые уроки каждую неделю", icon: CalendarDaysIcon },
+                
+                { text: "Практика в реальных проектах", icon: RocketLaunchIcon },
+                
               ].map((item) => (
                 <div
-                  key={item}
+                  key={item.text}
                   className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2 py-1 text-xs font-semibold text-gray-800 shadow-sm"
                 >
-                  <span className="h-2 w-2 rounded-full bg-primary" />
-                  {item}
+                  <item.icon className="h-5 w-5 text-primary" />
+                  {item.text}
                 </div>
               ))}
             </div>
@@ -189,3 +203,4 @@ const Hero2 = () => {
 };
 
 export default Hero2;
+

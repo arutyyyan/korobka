@@ -68,3 +68,4 @@ export const updateEnrollmentProgress = async (userId: string, courseSlug: strin
 };
 
 
+

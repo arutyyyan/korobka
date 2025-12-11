@@ -128,3 +128,4 @@ const MobileSnapSlider = () => {
 };
 
 export default MobileSnapSlider;
+
