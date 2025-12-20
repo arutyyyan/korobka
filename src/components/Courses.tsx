@@ -23,6 +23,15 @@ const Courses = () => {
   const { openEnrollment, enrollmentDialog, isEnrolled, enrollmentLoading } = useCourseEnrollment();
   const { data: availableCourses = [] } = useCourses();
 
+  // Sort courses to put "ИИ-креатор" topic first
+  const sortedCourses = [...availableCourses].sort((a, b) => {
+    const aIsAiCreator = a.topic === "ИИ-креатор";
+    const bIsAiCreator = b.topic === "ИИ-креатор";
+    if (aIsAiCreator && !bIsAiCreator) return -1;
+    if (!aIsAiCreator && bIsAiCreator) return 1;
+    return 0;
+  });
+
   return (
     <>
       <section className="py-8 pb-0 px-4">
@@ -64,7 +73,7 @@ const Courses = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {availableCourses.map((course, index) => {
+            {sortedCourses.map((course, index) => {
               const enrolled = isEnrolled(course);
               const isEnrollDisabled = Boolean(enrollmentLoading && !enrolled);
               return (

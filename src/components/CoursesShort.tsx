@@ -17,7 +17,7 @@ const CoursesShort = () => {
     return acc;
   }, []);
 
-  const topicOrder = ["ChatGPT", "ИИ-автоматизация", "Вайб-кодинг", "Видео", "Строим стартап", "Другое"];
+  const topicOrder = ["ИИ-креатор", "ChatGPT", "ИИ-автоматизация", "Вайб-кодинг", "Видео", "Строим стартап", "Другое"];
   const sortedGrouped = grouped.sort((a, b) => {
     const ai = topicOrder.indexOf(a.topic);
     const bi = topicOrder.indexOf(b.topic);

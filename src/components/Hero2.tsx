@@ -22,6 +22,7 @@ const Hero2 = () => {
     []
   );
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
 
   const handlePrimary = () => {
     window.open(getBotUrl(), "_blank");
@@ -35,8 +36,39 @@ const Hero2 = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/30">
-      <div className="container relative mx-auto px-4 py-6 sm:py-4 lg:py-6 flex flex-col gap-2 w-full">
+    <>
+      {/* Fixed Higgsfield Banner */}
+      {true && (
+        <div className="fixed bottom-4 left-4 right-4 z-40 max-w-6xl mx-auto flex items-center justify-between gap-4 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 rounded-3xl p-3 md:p-4 border border-gray-700 shadow-lg">
+          <div className="flex items-center gap-3 md:gap-4 flex-1 min-w-0">
+            <img 
+              src="/higgsfield_logo.png" 
+              alt="Higgsfield Logo" 
+              className="w-10 h-10 md:w-12 md:h-12 flex-shrink-0 object-contain"
+            />
+            <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+              <p className="text-white font-semibold text-[15px] md:text-base leading-tight">
+                Новый модуль: Higgsfield Image
+              </p>
+            </div>
+          </div>
+          <Button
+            onClick={handlePrimary}
+            className="button text-[14px] font-semibold h-10 rounded-2xl cursor-pointer select-none flex-shrink-0
+    active:translate-y-2  active:[box-shadow:0_0px_0_0_#9CBD23,0_0px_0_0_#9CBD23]
+    active:border-b-[0px]
+    transition-all duration-150 [box-shadow:0_4px_0_0_#9CBD23]
+    border-b-[1px] border-[#9CBD23] mb-1
+    "
+            style={{ backgroundColor: '#DBFE5E', color: '#000' }}
+          >
+            Начать обучение
+          </Button>
+        </div>
+      )}
+      
+      <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/30">
+        <div className="container relative mx-auto px-4 py-6 sm:py-4 lg:py-6 flex flex-col gap-2 w-full">
         <div className="w-full flex justify-between items-center gap-6 bg-white rounded-3xl p-2 pb-3 max-w-6xl mx-auto border border-gray-200">
           <div className="flex items-center gap-2 mt-1 ml-1">
           <img src="logo-box.png" alt="logo" className="w-8 object-contain" />
@@ -198,7 +230,8 @@ const Hero2 = () => {
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 };
 

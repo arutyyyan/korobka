@@ -1,0 +1,37 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d0d0d;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3a3a3a;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Dark background with subtle gradient -->
+  <rect width="512" height="512" rx="96" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle edge highlight for beveled/glossy effect -->
+  <rect width="512" height="512" rx="96" fill="url(#edgeGradient)"/>
+  
+  <!-- Lime green squiggle line - fluid abstract path -->
+  <path d="M 140 120 
+           L 200 120 
+           Q 250 120 240 180 
+           Q 230 220 180 220 
+           Q 130 220 150 280 
+           Q 170 320 220 300 
+           Q 270 280 260 340 
+           Q 250 380 300 380 
+           Q 320 380 330 360 
+           Q 340 350 380 360" 
+        fill="none" 
+        stroke="#32ff32" 
+        stroke-width="32" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+</svg>
+
