@@ -19,6 +19,7 @@ export type Course = {
   tools?: string[]; // e.g. ["Lovable", "Supabase"]
   summary?: string; // long one-paragraph description
   slug?: string; // english identifier for UTM/start param
+  previewLessonUrl?: string; // Vimeo video URL for preview lesson
 };
 
 export const availableCourses: Course[] = [
@@ -58,6 +59,7 @@ export const availableCourses: Course[] = [
       "Создаем ИИ-фотосессию со своим лицом",
     ],
     url: "/start/higgsfield-image",
+    previewLessonUrl: "https://player.vimeo.com/video/1148118635?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479",
   },
   {
     title: "Строим MVP на Make",

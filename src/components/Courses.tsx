@@ -16,6 +16,11 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useCourseEnrollment } from "@/hooks/use-course-enrollment";
 import { useCourses } from "@/hooks/use-courses";
 
@@ -130,7 +135,29 @@ const Courses = () => {
                     <div className="flex items-center gap-2 text-sm font-semibold text-primary mb-4">
                       Результат: {course.result}
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className={`grid gap-2 ${course.previewLessonUrl ? 'grid-cols-3' : 'grid-cols-2'}`}>
+                      {/* Preview Lesson Button */}
+                      {course.previewLessonUrl && (
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button variant="outline" className="w-full text-xs sm:text-sm">
+                              Пробный урок
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-4xl p-0">
+                            <div style={{ padding: '56.16% 0 0 0', position: 'relative' }}>
+                              <iframe
+                                src={course.previewLessonUrl}
+                                frameBorder="0"
+                                allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                                title={course.title}
+                              />
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                      )}
                       {/* Mobile: bottom sheet */}
                       <div className="sm:hidden">
                         <Drawer>

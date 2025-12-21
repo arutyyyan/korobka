@@ -2,6 +2,11 @@ import { Button } from "@/components/ui/button";
 import logoBox from "@/assets/logo-box.png";
 import { availableCourses, upcomingCourses } from "@/config/courses";
 import { getBotUrl } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const CoursesShort = () => {
   const handlePrimary = () => window.open(getBotUrl(), "_blank");
@@ -85,7 +90,28 @@ const CoursesShort = () => {
                           ))}
                         </div>
                       </div>
-                      <div className="mt-4">
+                      <div className="mt-4 space-y-2">
+                        {course.previewLessonUrl && (
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="w-full text-sm">
+                                Пробный урок
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-4xl p-0">
+                              <div style={{ padding: '56.16% 0 0 0', position: 'relative' }}>
+                                <iframe
+                                  src={course.previewLessonUrl}
+                                  frameBorder="0"
+                                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                                  referrerPolicy="strict-origin-when-cross-origin"
+                                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                                  title={course.title}
+                                />
+                              </div>
+                            </DialogContent>
+                          </Dialog>
+                        )}
                         <Button className="w-full" onClick={handlePrimary}>
                           Перейти в Коробку
                         </Button>
