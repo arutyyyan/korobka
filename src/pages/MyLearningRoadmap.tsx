@@ -83,10 +83,10 @@ const MyLearningRoadmap = () => {
 
   if (roadmapLoading) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center gap-4">
+      <div className="fixed inset-0 flex flex-col items-center justify-center gap-4 bg-background">
         <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
-        <p className="text-muted-foreground">
-          Генерируем ваш персональный роадмап...
+        <p className="text-muted-foreground text-lg">
+          Загружаем ваш персональный роадмап...
         </p>
       </div>
     );
@@ -121,8 +121,8 @@ const MyLearningRoadmap = () => {
             <Badge variant="outline" className="w-fit">
               Мой роадмап
             </Badge>
-            <h1 className="text-3xl font-bold">Ваш путь обучения</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-4xl font-bold">Ваш путь обучения</h1>
+            <p className="text-muted-foreground text-lg">
               Персональный план курсов на основе ваших целей и уровня
             </p>
           </div>
@@ -164,7 +164,7 @@ const MyLearningRoadmap = () => {
                           </Button>
                           <div className="flex-1 flex flex-col  gap-1">
                             <div className="flex items-center justify-between">
-                              <CardTitle className="text-xl text-[#111827] underline-offset-4 hover:underline">
+                              <CardTitle className="text-2xl text-[#111827] underline-offset-4 hover:underline">
                                 Шаг {index + 1}: {step.title}
                               </CardTitle>
 

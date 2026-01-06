@@ -6,7 +6,14 @@ import AdminLayout from "@/components/admin/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -57,8 +64,12 @@ const DirectionsPage = () => {
   const queryClient = useQueryClient();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [editingDirection, setEditingDirection] = useState<Direction | null>(null);
-  const [deleteDirection, setDeleteDirection] = useState<Direction | null>(null);
+  const [editingDirection, setEditingDirection] = useState<Direction | null>(
+    null
+  );
+  const [deleteDirection, setDeleteDirection] = useState<Direction | null>(
+    null
+  );
   const [formData, setFormData] = useState({
     id: "",
     title: "",
@@ -77,7 +88,12 @@ const DirectionsPage = () => {
   });
 
   const createMutation = useMutation({
-    mutationFn: async (data: { id: string; title: string; description: string | null; order_default: number }) => {
+    mutationFn: async (data: {
+      id: string;
+      title: string;
+      description: string | null;
+      order_default: number;
+    }) => {
       const { error } = await supabase.from("directions").insert([data]);
       if (error) throw error;
     },
@@ -105,9 +121,16 @@ const DirectionsPage = () => {
       data,
     }: {
       id: string;
-      data: { title: string; description: string | null; order_default: number };
+      data: {
+        title: string;
+        description: string | null;
+        order_default: number;
+      };
     }) => {
-      const { error } = await supabase.from("directions").update(data).eq("id", id);
+      const { error } = await supabase
+        .from("directions")
+        .update(data)
+        .eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
@@ -214,7 +237,10 @@ const DirectionsPage = () => {
     }
   };
 
-  const hasDirections = useMemo(() => directions.length > 0, [directions.length]);
+  const hasDirections = useMemo(
+    () => directions.length > 0,
+    [directions.length]
+  );
 
   return (
     <AdminLayout
@@ -232,7 +258,9 @@ const DirectionsPage = () => {
           <Alert variant="destructive">
             <AlertTitle>Не удалось загрузить направления</AlertTitle>
             <AlertDescription>
-              {error instanceof Error ? error.message : "Попробуйте обновить страницу чуть позже."}
+              {error instanceof Error
+                ? error.message
+                : "Попробуйте обновить страницу чуть позже."}
             </AlertDescription>
           </Alert>
         ) : null}
@@ -241,7 +269,9 @@ const DirectionsPage = () => {
           <div className="flex flex-col gap-2 border-b px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="font-semibold">Все направления</p>
-              <p className="text-sm text-muted-foreground">Всего: {directions.length}</p>
+              <p className="text-sm text-muted-foreground">
+                Всего: {directions.length}
+              </p>
             </div>
           </div>
 
@@ -273,9 +303,13 @@ const DirectionsPage = () => {
                   {directions.map((direction) => (
                     <TableRow key={direction.id}>
                       <TableCell>
-                        <code className="rounded bg-muted px-2 py-0.5 text-xs">{direction.id}</code>
+                        <code className="rounded bg-muted px-2 py-0.5 text-xs">
+                          {direction.id}
+                        </code>
                       </TableCell>
-                      <TableCell className="font-medium">{direction.title}</TableCell>
+                      <TableCell className="font-medium">
+                        {direction.title}
+                      </TableCell>
                       <TableCell className="text-muted-foreground">
                         {direction.description || "—"}
                       </TableCell>
@@ -312,7 +346,11 @@ const DirectionsPage = () => {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingDirection ? "Редактировать направление" : "Создать направление"}</DialogTitle>
+            <DialogTitle>
+              {editingDirection
+                ? "Редактировать направление"
+                : "Создать направление"}
+            </DialogTitle>
             <DialogDescription>
               {editingDirection
                 ? "Измените информацию о направлении."
@@ -327,7 +365,9 @@ const DirectionsPage = () => {
               <Input
                 id="id"
                 value={formData.id}
-                onChange={(e) => setFormData({ ...formData, id: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, id: e.target.value })
+                }
                 placeholder="general_ai"
                 disabled={!!editingDirection}
                 className="font-mono"
@@ -345,7 +385,9 @@ const DirectionsPage = () => {
               <Input
                 id="title"
                 value={formData.title}
-                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
                 placeholder="Общий ИИ и ChatGPT"
               />
             </div>
@@ -354,7 +396,9 @@ const DirectionsPage = () => {
               <Textarea
                 id="description"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 placeholder="Краткое описание направления..."
                 rows={3}
               />
@@ -365,7 +409,12 @@ const DirectionsPage = () => {
                 id="order_default"
                 type="number"
                 value={formData.order_default}
-                onChange={(e) => setFormData({ ...formData, order_default: parseInt(e.target.value) || 0 })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    order_default: parseInt(e.target.value) || 0,
+                  })
+                }
               />
             </div>
           </div>
@@ -387,22 +436,30 @@ const DirectionsPage = () => {
       </Dialog>
 
       {/* Delete Dialog */}
-      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+      <AlertDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Удалить направление?</AlertDialogTitle>
             <AlertDialogDescription>
-              Вы уверены, что хотите удалить направление "{deleteDirection?.title}"? Это действие нельзя отменить.
+              Вы уверены, что хотите удалить направление "
+              {deleteDirection?.title}"? Это действие нельзя отменить.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Отмена</AlertDialogCancel>
             <AlertDialogAction
-              onClick={() => deleteDirection && deleteMutation.mutate(deleteDirection.id)}
+              onClick={() =>
+                deleteDirection && deleteMutation.mutate(deleteDirection.id)
+              }
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+              {deleteMutation.isPending && (
+                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              )}
               Удалить
             </AlertDialogAction>
           </AlertDialogFooter>
@@ -416,7 +473,10 @@ const DirectionsTableSkeleton = () => {
   return (
     <div className="space-y-3">
       {Array.from({ length: 4 }).map((_, idx) => (
-        <div key={idx} className="grid gap-3 rounded-xl border p-4 sm:grid-cols-5">
+        <div
+          key={idx}
+          className="grid gap-3 rounded-xl border p-4 sm:grid-cols-5"
+        >
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-4 w-32" />
           <Skeleton className="h-4 w-full" />
@@ -429,12 +489,3 @@ const DirectionsTableSkeleton = () => {
 };
 
 export default DirectionsPage;
-
-
-
-
-
-
-
-
-

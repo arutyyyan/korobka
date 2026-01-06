@@ -215,17 +215,17 @@ const CoursePlayer = () => {
   return (
     <>
       <div className="flex-1 flex flex-col h-[calc(100dvh-50px)]">
-        <div className="flex-1 grid lg:grid-cols-[320px_1fr] gap-0 min-h-0">
+        <div className="flex-1 grid lg:grid-cols-[320px_1fr] gap-0 min-h-0 overflow-hidden">
           {/* Left Sidebar - Course Modules */}
           <aside
-            className="hidden lg:flex flex-col border-r border-border/40"
+            className="hidden lg:flex flex-col border-r border-border/40 h-full overflow-hidden"
             style={{ backgroundColor: "#F8FAFC" }}
           >
-            <div className="p-6 flex items-center justify-between">
+            <div className="p-6 flex items-center justify-between flex-shrink-0">
               <h1 className="text-2xl font-bold text-foreground">
                 {course.title}
               </h1>
-              <button className="text-muted-foreground hover:text-foreground">
+              {/* <button className="text-muted-foreground hover:text-foreground">
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -239,9 +239,9 @@ const CoursePlayer = () => {
                     d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
                   />
                 </svg>
-              </button>
+              </button> */}
             </div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto overscroll-contain">
               <LessonsNavigation
                 lessons={lessons}
                 activeLessonId={activeLessonId}
@@ -252,36 +252,38 @@ const CoursePlayer = () => {
           </aside>
 
           {/* Right Main Content */}
-          <section className="flex flex-col min-h-0 bg-white relative">
-            {activeLesson ? (
-              <>
-                <LessonContent
-                  lesson={activeLesson}
-                  course={course}
-                  lessonsCount={lessons.length}
-                  activeLessonCompleted={activeLessonCompleted}
-                  isFirstLesson={isFirstLesson}
-                  isLastLesson={isLastLesson}
-                  prevLesson={prevLesson}
-                  nextLesson={nextLesson}
-                  onToggleLesson={handleToggleLesson}
-                  onNavigateToLesson={goToLesson}
-                  onCourseCompleted={handleCourseCompleted}
-                  progressSaving={progressSaving}
-                  canViewContent={canViewContent} 
-                />
-                {/* Show paywall for lessons beyond first if not pro */}
-                {!isPro && currentIndex > 0 && <Paywall />}
-              </>
-            ) : (
-              <div className="flex-1 flex flex-col items-center justify-center text-center gap-3 text-muted-foreground p-8">
-                <BookOpen className="h-10 w-10" />
-                <p className="text-lg font-semibold">Нет доступных уроков</p>
-                <p className="text-sm">
-                  Как только уроки появятся, вы увидите их здесь.
-                </p>
-              </div>
-            )}
+          <section className="flex flex-col min-h-0 bg-white relative h-full overflow-hidden">
+            <div className="flex-1 overflow-y-auto overscroll-contain">
+              {activeLesson ? (
+                <>
+                  <LessonContent
+                    lesson={activeLesson}
+                    course={course}
+                    lessonsCount={lessons.length}
+                    activeLessonCompleted={activeLessonCompleted}
+                    isFirstLesson={isFirstLesson}
+                    isLastLesson={isLastLesson}
+                    prevLesson={prevLesson}
+                    nextLesson={nextLesson}
+                    onToggleLesson={handleToggleLesson}
+                    onNavigateToLesson={goToLesson}
+                    onCourseCompleted={handleCourseCompleted}
+                    progressSaving={progressSaving}
+                    canViewContent={canViewContent}
+                  />
+                  {/* Show paywall for lessons beyond first if not pro */}
+                  {!isPro && currentIndex > 0 && <Paywall />}
+                </>
+              ) : (
+                <div className="flex-1 flex flex-col items-center justify-center text-center gap-3 text-muted-foreground p-8">
+                  <BookOpen className="h-10 w-10" />
+                  <p className="text-lg font-semibold">Нет доступных уроков</p>
+                  <p className="text-sm">
+                    Как только уроки появятся, вы увидите их здесь.
+                  </p>
+                </div>
+              )}
+            </div>
             {/* Mobile Lessons Button */}
             {lessons.length > 0 ? (
               <div className="lg:hidden px-6 py-4">

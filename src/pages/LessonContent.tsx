@@ -55,7 +55,7 @@ export const LessonContent = memo(
         key={lesson.id}
       >
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto overscroll-contain scrollbar-hide p-6 space-y-6">
           {/* Video Player */}
           {videoEmbed ? (
             <div className="overflow-hidden rounded-xl bg-black">

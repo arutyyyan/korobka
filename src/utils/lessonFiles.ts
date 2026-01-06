@@ -47,7 +47,9 @@ export const lessonFilesApi = {
   get: async (lessonId: string) => {
     const { data, error } = await supabase
       .from("lesson_files")
-      .select("id, original_name, mime_type, size_bytes, order_index, file_path")
+      .select(
+        "id, original_name, mime_type, size_bytes, order_index, file_path"
+      )
       .eq("lesson_id", lessonId)
       .order("order_index");
 
@@ -93,12 +95,3 @@ export const lessonFilesApi = {
     return data.signedUrl;
   },
 };
-
-
-
-
-
-
-
-
-

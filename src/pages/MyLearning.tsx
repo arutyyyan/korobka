@@ -30,12 +30,12 @@ const MyLearning = () => {
     <div className="flex-1 flex flex-col min-h-0">
       <div className="flex-1 overflow-y-auto p-6">
         <div className="space-y-6">
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Badge variant="outline" className="w-fit">
               Моё обучение
             </Badge>
             <h1 className="text-3xl font-bold">Продолжить обучение</h1>
-          </div>
+          </div> */}
 
           <MyLearningRoadmap />
         </div>

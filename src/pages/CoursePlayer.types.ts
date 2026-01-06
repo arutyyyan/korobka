@@ -15,12 +15,3 @@ export type LessonNode = {
   video_url?: string | null;
   content_md?: string | null;
 };
-
-
-
-
-
-
-
-
-

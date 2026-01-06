@@ -686,4 +686,3 @@ const CourseGroupsTableSkeleton = () => {
 };
 
 export default CourseGroupsPage;
-

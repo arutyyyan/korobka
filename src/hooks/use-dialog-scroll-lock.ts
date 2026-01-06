@@ -8,19 +8,11 @@ export const useDialogScrollLock = (isOpen: boolean) => {
     if (!isOpen) {
       // Small delay to ensure Radix has cleaned up
       const timer = setTimeout(() => {
-        if (document.body.style.overflow === 'hidden') {
-          document.body.style.overflow = '';
+        if (document.body.style.overflow === "hidden") {
+          document.body.style.overflow = "";
         }
       }, 100);
       return () => clearTimeout(timer);
     }
   }, [isOpen]);
 };
-
-
-
-
-
-
-
-

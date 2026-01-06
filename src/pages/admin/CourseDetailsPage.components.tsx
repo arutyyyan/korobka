@@ -23,7 +23,11 @@ import {
 } from "@/components/ui/form";
 import { Badge } from "@/components/ui/badge";
 import { COURSE_LEVEL_LABELS } from "@/lib/utils";
-import type { CourseFormValues, CourseDetails, LessonSummary } from "./CourseDetailsPage.types";
+import type {
+  CourseFormValues,
+  CourseDetails,
+  LessonSummary,
+} from "./CourseDetailsPage.types";
 
 type DynamicArrayFieldProps = {
   control: Control<CourseFormValues>;
@@ -122,9 +126,7 @@ export const CourseHeader = ({ course, lessonsCount }: CourseHeaderProps) => {
         {course.is_published ? "Опубликован" : "Черновик"}
       </Badge>
       {course.level && (
-        <Badge variant="secondary">
-          {COURSE_LEVEL_LABELS[course.level]}
-        </Badge>
+        <Badge variant="secondary">{COURSE_LEVEL_LABELS[course.level]}</Badge>
       )}
       <Badge variant="outline" className="font-mono text-xs">
         Slug: {course.slug}
@@ -164,9 +166,7 @@ export const CourseLessonsList = ({
             <button
               type="button"
               onClick={() =>
-                navigate(
-                  `/admin/courses/${course.id}/lessons/${lesson.id}`
-                )
+                navigate(`/admin/courses/${course.id}/lessons/${lesson.id}`)
               }
               className="flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition hover:border-primary hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
@@ -278,12 +278,3 @@ export const CoverImageUpload = ({
     />
   );
 };
-
-
-
-
-
-
-
-
-

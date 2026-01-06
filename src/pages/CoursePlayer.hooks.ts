@@ -2,14 +2,17 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabaseClient";
 import type { PublicCourse, LessonNode } from "./CoursePlayer.types";
 
-export const useCourse = (courseSlug: string | undefined, userId: string | undefined) => {
+export const useCourse = (
+  courseSlug: string | undefined,
+  userId: string | undefined
+) => {
   return useQuery({
     queryKey: ["course", courseSlug],
     enabled: !!courseSlug && !!userId,
     staleTime: 60_000,
     queryFn: async () => {
       if (!courseSlug) throw new Error("Course slug is required");
-      
+
       const { data, error } = await supabase
         .from("courses")
         .select(
@@ -112,7 +115,7 @@ export const useLessonProgress = (
     staleTime: 60_000,
     queryFn: async () => {
       if (!userId || !courseSlug) return [];
-      
+
       const { data, error } = await supabase
         .from("lesson_progress")
         .select("lesson_id")
@@ -124,12 +127,3 @@ export const useLessonProgress = (
     },
   });
 };
-
-
-
-
-
-
-
-
-

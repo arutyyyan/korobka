@@ -22,6 +22,7 @@ supabase secrets set TELEGRAM_LINK_ENDPOINT=https://njnmapywjjgbzhczakib.supabas
 ### For `telegram-link` function:
 
 The `telegram-link` function automatically has access to:
+
 - `SUPABASE_URL` (auto-provided)
 - `SUPABASE_SERVICE_ROLE_KEY` (auto-provided)
 
@@ -61,12 +62,3 @@ Replace `<YOUR_BOT_TOKEN>` with your actual bot token.
 - Verify environment variables are set correctly
 - Ensure webhook is configured properly
 - Check that RLS policies allow users to create login_links
-
-
-
-
-
-
-
-
-

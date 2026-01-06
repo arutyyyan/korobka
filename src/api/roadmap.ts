@@ -46,4 +46,3 @@ export const getUserRoadmap = async (): Promise<RoadmapResponse> => {
 
   return response.json();
 };
-

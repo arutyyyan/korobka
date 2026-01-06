@@ -123,7 +123,7 @@ const PlatformHeader = () => {
               >
                 Мое обучение
               </NavLink>
-              <NavLink
+              {/* <NavLink
                 to="/courses"
                 className={({ isActive }) =>
                   `text-sm font-medium transition-colors h-full flex items-center relative ${
@@ -134,7 +134,7 @@ const PlatformHeader = () => {
                 }
               >
                 Все курсы
-              </NavLink>
+              </NavLink> */}
               {isAdmin && (
                 <NavLink
                   to="/admin"

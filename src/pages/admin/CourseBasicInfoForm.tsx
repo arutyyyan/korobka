@@ -153,11 +153,3 @@ export const CourseBasicInfoForm = ({
     </>
   );
 };
-
-
-
-
-
-
-
-

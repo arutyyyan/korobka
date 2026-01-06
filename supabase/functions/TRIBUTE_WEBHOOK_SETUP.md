@@ -8,6 +8,7 @@
 ## 📋 Overview
 
 The `tribute-webhook` function handles subscription events from Tribute payment system:
+
 - `new_subscription` - Creates/updates subscription as active
 - `cancelled_subscription` - Updates subscription status to cancelled (but keeps access until expires_at)
 
@@ -16,6 +17,7 @@ The `tribute-webhook` function handles subscription events from Tribute payment 
 ### Webhook URL
 
 Point your Tribute webhook to:
+
 ```
 https://njnmapywjjgbzhczakib.supabase.co/functions/v1/tribute-webhook
 ```
@@ -51,6 +53,7 @@ if (webhookSecret !== Deno.env.get("TRIBUTE_WEBHOOK_SECRET")) {
 ```
 
 Then set the secret:
+
 ```bash
 supabase secrets set TRIBUTE_WEBHOOK_SECRET=your_secret_here --project-ref njnmapywjjgbzhczakib
 ```
@@ -58,6 +61,7 @@ supabase secrets set TRIBUTE_WEBHOOK_SECRET=your_secret_here --project-ref njnma
 ## 📊 Database Schema
 
 The `subscriptions` table stores:
+
 - One row per user (enforced by UNIQUE(user_id))
 - Subscription status: `active` or `cancelled`
 - `access_until`: Date when access expires
@@ -118,12 +122,3 @@ curl -X POST https://njnmapywjjgbzhczakib.supabase.co/functions/v1/tribute-webho
 3. The `access_until` field is set from `payload.expires_at`
 4. Users can view their own subscriptions via RLS policies
 5. Pro status is checked automatically in `AuthContext` and available via `useAuth().isPro`
-
-
-
-
-
-
-
-
-
