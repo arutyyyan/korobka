@@ -31,6 +31,7 @@ export type AuthContextValue = {
   signOut: () => Promise<AuthError | null>;
   signInWithGoogle: () => Promise<AuthError | null>;
   refreshProfile: () => Promise<void>;
+  clearAuthState: () => void;
 };
 
 export const AuthContext = createContext<AuthContextValue | undefined>(

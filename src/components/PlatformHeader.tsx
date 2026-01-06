@@ -34,15 +34,13 @@ const PlatformHeader = () => {
   const [telegramDialogOpen, setTelegramDialogOpen] = useState(false);
 
   const handleSignOut = async () => {
-    const error = await signOut();
-    if (error) {
-      toast({
-        title: "Не удалось выйти",
-        description: error.message,
-        variant: "destructive",
-      });
-      return;
-    }
+    // Вызываем signOut - он всегда сбрасывает состояние, даже при ошибке
+    await signOut();
+
+    // ЖЁСТКИЙ RESET - принудительно обновляем профиль и перенаправляем
+    await refreshProfile();
+    navigate("/", { replace: true });
+
     toast({ title: "До встречи!", description: "Вы вышли из аккаунта." });
   };
 

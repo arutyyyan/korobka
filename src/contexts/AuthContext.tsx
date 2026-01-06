@@ -21,6 +21,14 @@ export const AuthProvider = ({ children }: Props) => {
   const [profileReady, setProfileReady] = useState(false);
   const [isPro, setIsPro] = useState(false);
 
+  const clearAuthState = () => {
+    setSession(null);
+    setProfile(null);
+    setIsPro(false);
+    setProfileLoading(false);
+    setProfileReady(true);
+  };
+
   useEffect(() => {
     let isMounted = true;
 
@@ -31,9 +39,17 @@ export const AuthProvider = ({ children }: Props) => {
       }
 
       if (!error) {
-        setSession(data.session ?? null);
+        // Проверяем сессию при инициализации
+        if (!data.session) {
+          // Если сессии нет - принудительно сбрасываем состояние
+          clearAuthState();
+        } else {
+          setSession(data.session);
+        }
       } else {
         console.error("Failed to fetch Supabase session", error);
+        // При ошибке тоже сбрасываем состояние
+        clearAuthState();
       }
       setLoading(false);
     };
@@ -46,7 +62,13 @@ export const AuthProvider = ({ children }: Props) => {
       if (!isMounted) {
         return;
       }
-      setSession(newSession);
+      // При изменении состояния аутентификации проверяем сессию
+      if (!newSession) {
+        // Если сессии нет - сбрасываем состояние
+        clearAuthState();
+      } else {
+        setSession(newSession);
+      }
       setLoading(false);
     });
 
@@ -160,8 +182,13 @@ export const AuthProvider = ({ children }: Props) => {
   };
 
   const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    return error ?? null;
+    // Вызываем signOut, но игнорируем ошибку - всегда сбрасываем состояние
+    await supabase.auth.signOut();
+
+    // ЖЁСТКИЙ RESET - всегда сбрасываем состояние, даже если signOut вернул ошибку
+    clearAuthState();
+
+    return null;
   };
 
   const signInWithGoogle = async () => {
@@ -197,6 +224,7 @@ export const AuthProvider = ({ children }: Props) => {
       signOut,
       signInWithGoogle,
       refreshProfile,
+      clearAuthState,
     }),
     [loading, profileLoading, profileReady, session, profile, isPro]
   );
