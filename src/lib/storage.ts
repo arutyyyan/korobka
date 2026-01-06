@@ -90,5 +90,51 @@ export const getCourseCoverUrl = (path: string): string => {
   return publicUrl;
 };
 
+/**
+ * Upload a course cover image to Supabase storage by course slug
+ * @param file - The image file to upload
+ * @param slug - The slug of the course
+ * @returns The public URL of the uploaded image
+ */
+export const uploadCourseCoverBySlug = async (
+  file: File,
+  slug: string
+): Promise<string> => {
+  // Validate file type
+  if (!file.type.startsWith("image/")) {
+    throw new Error("File must be an image");
+  }
+
+  // Validate file size (max 5MB)
+  const maxSize = 5 * 1024 * 1024; // 5MB
+  if (file.size > maxSize) {
+    throw new Error("File size must be less than 5MB");
+  }
+
+  // Generate a unique filename
+  const fileExt = file.name.split(".").pop();
+  const fileName = `${slug}-${Date.now()}.${fileExt}`;
+  const filePath = `${slug}/${fileName}`;
+
+  // Upload the file
+  const { data, error } = await supabase.storage
+    .from(COURSE_COVERS_BUCKET)
+    .upload(filePath, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (error) {
+    throw error;
+  }
+
+  // Get the public URL
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from(COURSE_COVERS_BUCKET).getPublicUrl(filePath);
+
+  return publicUrl;
+};
+
 
 

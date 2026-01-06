@@ -45,7 +45,9 @@ const lessonTopics: LessonTopic[] = [
 ];
 
 const Hero = () => {
-  const [selectedTopic, setSelectedTopic] = useState<LessonTopic>(lessonTopics[0]);
+  const [selectedTopic, setSelectedTopic] = useState<LessonTopic>(
+    lessonTopics[0]
+  );
 
   const handleClick = () => {
     window.open(getBotUrl(), "_blank");
@@ -63,17 +65,17 @@ const Hero = () => {
       <div className="container relative z-10 mx-auto px-4 py-10 sm:py-20">
         <div className="max-w-4xl mx-auto text-center">
           {/* Special Offer Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-full border border-primary/20 px-1 py-1 text-sm mb-8 hover:border-primary/40 transition-colors relative overflow-visible">
-            <img
+          <div className="pl-2 inline-flex items-center gap-2 bg-gradient-to-r from-primary/10 to-secondary/10 backdrop-blur-sm rounded-full border border-primary/20 px-1 py-1 text-sm mb-8 hover:border-primary/40 transition-colors relative overflow-visible">
+            {/* <img
               src={saleImage}
-              alt="30% Sale"
+              alt="15% Sale"
               className="w-10 h-10 mt-[-15px] object-contain animate-bounce"
-            />
+            /> */}
             <span className="text-primary font-medium">
               Промокод на скидку внизу
             </span>
             <span className="text-xs bg-primary/20 px-2 py-1 rounded-full text-primary font-semibold">
-              -30%
+              -10%
             </span>
           </div>
 

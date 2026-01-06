@@ -1,5 +1,12 @@
 import { useLocation, useNavigate, NavLink } from "react-router-dom";
-import { BookOpen, LayoutGrid, Users, type LucideIcon } from "lucide-react";
+import {
+  BookOpen,
+  LayoutGrid,
+  Users,
+  Compass,
+  Layers,
+  type LucideIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/use-auth";
 import logoBox from "@/assets/logo-box.png";
@@ -25,6 +32,8 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { label: "Обзор", icon: LayoutGrid, path: "/admin" },
   { label: "Курсы", icon: BookOpen, path: "/admin/courses" },
+  { label: "Направления", icon: Compass, path: "/admin/directions" },
+  { label: "Группы курсов", icon: Layers, path: "/admin/course-groups" },
   { label: "Студенты", icon: Users, path: "/admin/students", disabled: true },
 ];
 
@@ -56,7 +65,9 @@ const AdminSidebar = () => {
     if (path === "/admin") {
       return location.pathname === "/admin";
     }
-    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+    return (
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    );
   };
 
   const handleNavigate = (item: NavItem) => {
@@ -70,7 +81,10 @@ const AdminSidebar = () => {
   };
 
   return (
-    <aside className="hidden lg:flex flex-col border-r border-border/40" style={{ backgroundColor: '#F8FAFC' }}>
+    <aside
+      className="flex flex-col h-full"
+      style={{ backgroundColor: "#F8FAFC" }}
+    >
       {/* Logo at top */}
       <div className="p-6 border-b border-border/40">
         <NavLink to="/admin" className="flex items-center gap-3">
@@ -100,7 +114,12 @@ const AdminSidebar = () => {
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className={cn("h-5 w-5", active ? "text-primary" : "text-muted-foreground")} />
+                  <Icon
+                    className={cn(
+                      "h-5 w-5",
+                      active ? "text-primary" : "text-muted-foreground"
+                    )}
+                  />
                   <span className="text-base">{item.label}</span>
                 </div>
               </button>
@@ -116,20 +135,27 @@ const AdminSidebar = () => {
             <DropdownMenuTrigger asChild>
               <button className="w-full flex items-center gap-3 rounded-lg hover:bg-gray-50/50 p-2 transition-colors outline-none focus:outline-none">
                 <Avatar className="h-8 w-8 cursor-pointer">
-                  <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || "Admin"} />
+                  <AvatarImage
+                    src={user.user_metadata?.avatar_url}
+                    alt={user.email || "Admin"}
+                  />
                   <AvatarFallback className="bg-primary/10 text-primary">
                     {getInitials(user.email)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 text-left min-w-0">
-                  <p className="text-xs text-muted-foreground truncate">Администратор</p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    Администратор
+                  </p>
                   <p className="text-sm font-medium truncate">{user.email}</p>
                 </div>
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-64">
               <DropdownMenuLabel className="flex flex-col gap-1">
-                <span className="text-muted-foreground text-xs">Администратор</span>
+                <span className="text-muted-foreground text-xs">
+                  Администратор
+                </span>
                 <span className="font-medium truncate">{user.email}</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -138,15 +164,18 @@ const AdminSidebar = () => {
                 Права администратора
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
-                onClick={() => navigate("/admin/profile/settings")} 
+              <DropdownMenuItem
+                onClick={() => navigate("/admin/profile/settings")}
                 className="flex items-center gap-2"
               >
                 <Settings className="h-4 w-4" />
                 Настройки
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2 text-destructive">
+              <DropdownMenuItem
+                onClick={handleSignOut}
+                className="flex items-center gap-2 text-destructive"
+              >
                 <LogOut className="h-4 w-4" />
                 Выйти
               </DropdownMenuItem>

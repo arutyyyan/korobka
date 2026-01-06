@@ -2,13 +2,41 @@ import { useState, useEffect } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type UseFormReturn } from "react-hook-form";
-import { Loader2, LogIn, LogOut, Mail, ShieldCheck, UserRound } from "lucide-react";
+import {
+  Loader2,
+  LogIn,
+  LogOut,
+  Mail,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -53,9 +81,23 @@ const GoogleIcon = () => (
   </svg>
 );
 
-const AuthButton = ({ className, variant = "outline", size = "sm", fullWidth }: Props) => {
+const AuthButton = ({
+  className,
+  variant = "outline",
+  size = "sm",
+  fullWidth,
+}: Props) => {
   const { toast } = useToast();
-  const { user, loading, signIn, signUp, signOut, signInWithGoogle, isAdmin } = useAuth();
+  const {
+    user,
+    loading,
+    signIn,
+    signUp,
+    signOut,
+    signInWithGoogle,
+    isAdmin,
+    isPro,
+  } = useAuth();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [mode, setMode] = useState<Mode>("signin");
@@ -102,7 +144,10 @@ const AuthButton = ({ className, variant = "outline", size = "sm", fullWidth }: 
     }
 
     if (mode === "signin") {
-      toast({ title: "Добро пожаловать!", description: "Вы успешно вошли в аккаунт." });
+      toast({
+        title: "Добро пожаловать!",
+        description: "Вы успешно вошли в аккаунт.",
+      });
       setShouldRedirect(true);
       // Redirect will be handled by useEffect hook
     } else {
@@ -169,10 +214,13 @@ const AuthButton = ({ className, variant = "outline", size = "sm", fullWidth }: 
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-2 text-muted-foreground">
             <ShieldCheck className="h-4 w-4 text-emerald-500" />
-            Подписка активна
+            {isPro ? "Подписка активна" : "Подписка не активна"}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2 text-destructive">
+          <DropdownMenuItem
+            onClick={handleSignOut}
+            className="flex items-center gap-2 text-destructive"
+          >
             <LogOut className="h-4 w-4" />
             Выйти
           </DropdownMenuItem>
@@ -190,17 +238,27 @@ const AuthButton = ({ className, variant = "outline", size = "sm", fullWidth }: 
           className={cn("gap-2", fullWidth && "w-full", className)}
           disabled={loading}
         >
-          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogIn className="h-4 w-4" />}
+          {loading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <LogIn className="h-4 w-4" />
+          )}
           Войти
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>Вход или регистрация</DialogTitle>
-          <DialogDescription>Используйте email или авторизуйтесь через Google.</DialogDescription>
+          <DialogDescription>
+            Используйте email или авторизуйтесь через Google.
+          </DialogDescription>
         </DialogHeader>
 
-        <Tabs value={mode} onValueChange={(value) => setMode(value as Mode)} className="space-y-4">
+        <Tabs
+          value={mode}
+          onValueChange={(value) => setMode(value as Mode)}
+          className="space-y-4"
+        >
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="signin">Войти</TabsTrigger>
             <TabsTrigger value="signup">Регистрация</TabsTrigger>
@@ -229,8 +287,18 @@ const AuthButton = ({ className, variant = "outline", size = "sm", fullWidth }: 
 
         <div className="space-y-4">
           <Separator />
-          <Button type="button" variant="outline" className="w-full gap-2" onClick={handleGoogleAuth} disabled={submitting}>
-            {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <GoogleIcon />}
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full gap-2"
+            onClick={handleGoogleAuth}
+            disabled={submitting}
+          >
+            {submitting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <GoogleIcon />
+            )}
             Продолжить через Google
           </Button>
         </div>
@@ -247,7 +315,13 @@ type EmailFormProps = {
   helper: string;
 };
 
-const EmailForm = ({ form, onSubmit, pending, helper, submitLabel }: EmailFormProps) => {
+const EmailForm = ({
+  form,
+  onSubmit,
+  pending,
+  helper,
+  submitLabel,
+}: EmailFormProps) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -258,7 +332,12 @@ const EmailForm = ({ form, onSubmit, pending, helper, submitLabel }: EmailFormPr
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="you@example.com" autoComplete="email" {...field} />
+                <Input
+                  type="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -272,7 +351,12 @@ const EmailForm = ({ form, onSubmit, pending, helper, submitLabel }: EmailFormPr
             <FormItem>
               <FormLabel>Пароль</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" autoComplete="current-password" {...field} />
+                <Input
+                  type="password"
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -294,4 +378,3 @@ const EmailForm = ({ form, onSubmit, pending, helper, submitLabel }: EmailFormPr
 };
 
 export default AuthButton;
-

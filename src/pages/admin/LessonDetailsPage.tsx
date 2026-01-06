@@ -13,9 +13,20 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/lib/supabaseClient";
 import { formatDate } from "@/lib/utils";
 import { getVideoEmbed } from "@/lib/video";
-import { MarkdownPreview, MarkdownEditor } from "@/components/admin/MarkdownEditor";
+import {
+  MarkdownPreview,
+  MarkdownEditor,
+} from "@/components/admin/MarkdownEditor";
+import { LessonFileManager } from "@/components/admin/LessonFileManager";
 import { useToast } from "@/hooks/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
 type LessonDetails = {
@@ -23,6 +34,7 @@ type LessonDetails = {
   title: string;
   video_url: string | null;
   content_md: string | null;
+  duration_minutes: number | null;
   order_index: number | null;
   course_id: string;
   created_at: string | null;
@@ -35,8 +47,19 @@ type CourseSummary = {
 
 const lessonUpdateSchema = z.object({
   title: z.string().min(1, "Название обязательно"),
-  videoUrl: z.union([z.string().url("Укажите корректный URL"), z.literal("")]).optional(),
+  videoUrl: z
+    .union([z.string().url("Укажите корректный URL"), z.literal("")])
+    .optional(),
   contentMd: z.string().optional(),
+  durationMinutes: z
+    .union([z.number().int().min(0), z.string()])
+    .optional()
+    .transform((val) => {
+      if (val === undefined || val === null || val === "") return undefined;
+      const num = typeof val === "string" ? parseInt(val, 10) : val;
+      return isNaN(num) || num < 0 ? undefined : num;
+    })
+    .pipe(z.number().int().min(0).optional()),
 });
 
 type LessonFormValues = z.infer<typeof lessonUpdateSchema>;
@@ -44,7 +67,9 @@ type LessonFormValues = z.infer<typeof lessonUpdateSchema>;
 const fetchLessonDetails = async (lessonId: string) => {
   const { data: lesson, error: lessonError } = await supabase
     .from("lessons")
-    .select("id,title,video_url,content_md,order_index,course_id,created_at")
+    .select(
+      "id,title,video_url,content_md,duration_minutes,order_index,course_id,created_at"
+    )
     .eq("id", lessonId)
     .single();
 
@@ -69,20 +94,16 @@ const fetchLessonDetails = async (lessonId: string) => {
 };
 
 const LessonDetailsPage = () => {
-  const { courseId, lessonId } = useParams<{ courseId: string; lessonId: string }>();
+  const { courseId, lessonId } = useParams<{
+    courseId: string;
+    lessonId: string;
+  }>();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+  const { data, isLoading, isError, error, refetch, isRefetching } = useQuery({
     queryKey: ["admin-lesson", lessonId],
     queryFn: () => fetchLessonDetails(lessonId!),
     enabled: Boolean(lessonId),
@@ -94,6 +115,7 @@ const LessonDetailsPage = () => {
       title: "",
       videoUrl: "",
       contentMd: "",
+      durationMinutes: undefined,
     },
   });
 
@@ -103,7 +125,11 @@ const LessonDetailsPage = () => {
         title="Урок не выбран"
         description="Вернитесь к курсу и выберите нужный урок."
         actions={
-          <Button variant="outline" size="sm" onClick={() => navigate("/admin/courses")}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/admin/courses")}
+          >
             Все курсы
           </Button>
         }
@@ -123,7 +149,10 @@ const LessonDetailsPage = () => {
     if (!lesson) return "--";
     return ((lesson.order_index ?? 0) + 1).toString().padStart(2, "0");
   }, [lesson]);
-  const videoEmbed = useMemo(() => getVideoEmbed(lesson?.video_url), [lesson?.video_url]);
+  const videoEmbed = useMemo(
+    () => getVideoEmbed(lesson?.video_url),
+    [lesson?.video_url]
+  );
 
   useEffect(() => {
     if (lesson) {
@@ -131,6 +160,11 @@ const LessonDetailsPage = () => {
         title: lesson.title ?? "",
         videoUrl: lesson.video_url ?? "",
         contentMd: lesson.content_md ?? "",
+        durationMinutes:
+          lesson.duration_minutes !== null &&
+          lesson.duration_minutes !== undefined
+            ? Number(lesson.duration_minutes)
+            : undefined,
       });
     }
   }, [lesson, lessonForm]);
@@ -140,10 +174,15 @@ const LessonDetailsPage = () => {
     setSaving(true);
     const payload = {
       title: values.title.trim(),
-      video_url: values.videoUrl && values.videoUrl.length > 0 ? values.videoUrl : null,
+      video_url:
+        values.videoUrl && values.videoUrl.length > 0 ? values.videoUrl : null,
       content_md: values.contentMd ?? null,
+      duration_minutes: values.durationMinutes ?? null,
     };
-    const { error: updateError } = await supabase.from("lessons").update(payload).eq("id", lesson.id);
+    const { error: updateError } = await supabase
+      .from("lessons")
+      .update(payload)
+      .eq("id", lesson.id);
     setSaving(false);
     if (updateError) {
       toast({
@@ -188,7 +227,9 @@ const LessonDetailsPage = () => {
           <Alert variant="destructive">
             <AlertTitle>Не удалось загрузить урок</AlertTitle>
             <AlertDescription>
-              {error instanceof Error ? error.message : "Попробуйте обновить страницу чуть позже."}
+              {error instanceof Error
+                ? error.message
+                : "Попробуйте обновить страницу чуть позже."}
             </AlertDescription>
           </Alert>
         ) : null}
@@ -210,19 +251,52 @@ const LessonDetailsPage = () => {
               </div>
               {videoEmbed ? (
                 <div className="overflow-hidden rounded-xl border bg-black/40">
-                  <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+                  {/* <div
+                    style={{ padding: "60.07% 0 0 0", position: "relative" }}
+                  >
                     <iframe
                       src={videoEmbed.src}
-                      title={videoEmbed.title ?? "Video player"}
-                      allow={videoEmbed.allow}
-                      allowFullScreen
-                      className="absolute inset-0 h-full w-full border-0"
+                      frameborder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      title="Make.Expert_1"
+                    ></iframe>
+                    
+                  </div> */}
+                  <script src="https://player.vimeo.com/api/player.js"></script>
+                  <div
+                    style={{
+                      padding: "56.25% 0 0 0",
+                      position: "relative",
+                    }}
+                  >
+                    <iframe
+                      src={videoEmbed.src}
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                      referrerPolicy="strict-origin-when-cross-origin"
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      title="Video player"
                     />
                   </div>
                 </div>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  Видео не добавлено. Укажите ссылку на Kinescope или YouTube в настройках урока.
+                  Видео не добавлено. Укажите ссылку на Kinescope или YouTube в
+                  настройках урока.
                 </p>
               )}
               <div className="flex flex-wrap gap-3">
@@ -236,7 +310,11 @@ const LessonDetailsPage = () => {
                 </Button>
                 {lesson.video_url ? (
                   <Button asChild size="sm" variant="secondary">
-                    <a href={lesson.video_url} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={lesson.video_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       Открыть оригинальную ссылку
                     </a>
                   </Button>
@@ -248,12 +326,16 @@ const LessonDetailsPage = () => {
               <div>
                 <h2 className="text-lg font-semibold">Содержимое урока</h2>
                 <p className="text-sm text-muted-foreground">
-                  Текст в формате Markdown. Отобразите его студентам в приложении.
+                  Текст в формате Markdown. Отобразите его студентам в
+                  приложении.
                 </p>
               </div>
               {editing ? (
                 <Form {...lessonForm}>
-                  <form onSubmit={lessonForm.handleSubmit(handleLessonSave)} className="space-y-4">
+                  <form
+                    onSubmit={lessonForm.handleSubmit(handleLessonSave)}
+                    className="space-y-4"
+                  >
                     <FormField
                       control={lessonForm.control}
                       name="title"
@@ -261,7 +343,10 @@ const LessonDetailsPage = () => {
                         <FormItem>
                           <FormLabel>Название</FormLabel>
                           <FormControl>
-                            <Input placeholder="Например, Модуль 1. Введение" {...field} />
+                            <Input
+                              placeholder="Например, Модуль 1. Введение"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -274,9 +359,50 @@ const LessonDetailsPage = () => {
                         <FormItem>
                           <FormLabel>Видео (URL)</FormLabel>
                           <FormControl>
-                            <Input placeholder="https://youtube.com/..." {...field} />
+                            <Input
+                              placeholder="https://youtube.com/..."
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={lessonForm.control}
+                      name="durationMinutes"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Длительность (минуты)</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="15"
+                              value={
+                                field.value !== undefined &&
+                                field.value !== null
+                                  ? String(field.value)
+                                  : ""
+                              }
+                              onChange={(e) => {
+                                const value = e.target.value;
+                                if (value === "" || value.trim() === "") {
+                                  field.onChange(undefined);
+                                } else {
+                                  const numValue = parseInt(value, 10);
+                                  field.onChange(
+                                    isNaN(numValue) ? undefined : numValue
+                                  );
+                                }
+                              }}
+                              min="0"
+                              step="1"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                          <p className="text-xs text-muted-foreground">
+                            Укажите длительность урока в минутах (необязательно)
+                          </p>
                         </FormItem>
                       )}
                     />
@@ -299,7 +425,12 @@ const LessonDetailsPage = () => {
                       )}
                     />
                     <div className="flex justify-end gap-3">
-                      <Button type="button" variant="ghost" onClick={() => setEditing(false)} disabled={saving}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        onClick={() => setEditing(false)}
+                        disabled={saving}
+                      >
                         Отмена
                       </Button>
                       <Button type="submit" disabled={saving}>
@@ -313,14 +444,22 @@ const LessonDetailsPage = () => {
               ) : (
                 <div className="rounded-xl border border-dashed bg-muted/20 p-6 text-sm text-muted-foreground">
                   Материалы ещё не добавлены.
-              </div>
+                </div>
               )}
+            </section>
+
+            {/* Lesson Files Section */}
+            <section className="rounded-2xl border bg-background p-6 shadow-sm">
+              <LessonFileManager lessonId={lesson.id} />
             </section>
           </>
         ) : (
           <Alert>
             <AlertTitle>Урок не найден</AlertTitle>
-            <AlertDescription>Возможно, урок был удалён. Вернитесь к курсу и попробуйте выбрать другой.</AlertDescription>
+            <AlertDescription>
+              Возможно, урок был удалён. Вернитесь к курсу и попробуйте выбрать
+              другой.
+            </AlertDescription>
           </Alert>
         )}
       </div>
@@ -336,5 +475,3 @@ const LessonDetailsSkeleton = () => (
 );
 
 export default LessonDetailsPage;
-
-

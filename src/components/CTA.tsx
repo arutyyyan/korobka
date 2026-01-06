@@ -2,7 +2,8 @@ import { getBotUrl } from "@/lib/utils";
 
 const CTA = () => {
   const handleClick = () => {
-    window.open("https://t.me/tribute/app?startapp=sC9M_pc_CHAT", "_blank");
+    // window.open("https://t.me/tribute/app?startapp=sC9M_pc_LANDING", "_blank");
+    window.open("https://t.me/tribute/app?startapp=sC9M", "_blank");
   };
 
   return (
@@ -41,19 +42,19 @@ const CTA = () => {
 
               {/* Discount Text */}
               <p className="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
-                Получи скидку 30%
+                Получи скидку 10%
               </p>
               <div className="mb-6">
                 <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
                   <span className="line-through text-gray-400 mr-2">20€</span>
-                  <span className="text-green-600">14€/месяц</span>
+                  <span className="text-green-600">18€/месяц</span>
                 </p>
                 <p className="text-sm text-gray-600">
-                  Экономия 6€ • Предложение ограничено по времени
+                  Экономия 2€ • Предложение ограничено по времени
                 </p>
               </div>
               <p className="text-lg text-primary font-semibold mb-8">
-                Промокод: CHAT
+                Промокод: LANDING
               </p>
 
               {/* CTA Button */}

@@ -33,6 +33,7 @@ export const enrollInCourse = async (userId: string, courseSlug: string) => {
     user_id: userId,
     course_slug: courseSlug,
     status: "in_progress" as EnrollmentStatus,
+    progress: 0,
   };
 
   const { data, error } = await supabase
@@ -48,6 +49,21 @@ export const enrollInCourse = async (userId: string, courseSlug: string) => {
   }
 
   return data as EnrollmentRecord;
+};
+
+export const completeCourse = async (userId: string, courseSlug: string) => {
+  const { error } = await supabase
+    .from(ENROLLMENTS_TABLE)
+    .update({
+      status: "completed" as EnrollmentStatus,
+      progress: 100,
+    })
+    .eq("user_id", userId)
+    .eq("course_slug", courseSlug);
+
+  if (error) {
+    throw error;
+  }
 };
 
 

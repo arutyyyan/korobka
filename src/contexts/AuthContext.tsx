@@ -5,7 +5,9 @@ import type { AuthContextValue, Profile } from "@/contexts/auth-context";
 import { supabase } from "@/lib/supabaseClient";
 import { AuthContext } from "@/contexts/auth-context";
 
-const ADMIN_EMAILS = ["alish.abdulin@gmail.com"].map((email) => email.toLowerCase());
+const ADMIN_EMAILS = ["alish.abdulin@gmail.com"].map((email) =>
+  email.toLowerCase()
+);
 
 type Props = {
   children: React.ReactNode;
@@ -17,6 +19,7 @@ export const AuthProvider = ({ children }: Props) => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [profileReady, setProfileReady] = useState(false);
+  const [isPro, setIsPro] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -55,37 +58,99 @@ export const AuthProvider = ({ children }: Props) => {
 
   const userId = session?.user?.id;
 
-  useEffect(() => {
+  // Загрузка прав доступа из user_access (ОТДЕЛЬНО от профиля)
+  // IMPORTANT: НЕ используем .eq("user_id", userId) - RLS автоматически фильтрует по auth.uid()
+  const fetchUserAccess = async (): Promise<boolean> => {
+    const { data: access, error } = await supabase
+      .from("user_access")
+      .select("is_pro")
+      .single();
+
+    if (error) {
+      console.error("Failed to load user access", error);
+      return false;
+    }
+
+    return Boolean(access?.is_pro);
+  };
+
+  // Загрузка профиля (БЕЗ доступа, только персональные данные)
+  const fetchProfile = async () => {
     if (!userId) {
       setProfile(null);
       setProfileLoading(false);
       setProfileReady(true);
+      setIsPro(false);
       return;
     }
+    setProfileLoading(true);
+    setProfileReady(false);
+
+    // Загружаем профиль БЕЗ is_pro
+    const { data, error } = await supabase
+      .from("profiles")
+      .select(
+        `
+        id,
+        email,
+        full_name,
+        avatar_url,
+        is_admin,
+        telegram_user_id,
+        onboarding_completed,
+        ai_goals,
+        ai_context,
+        ai_ai_level,
+        ai_code_level,
+        ai_priority_tracks,
+        created_at
+      `
+      )
+      .eq("id", userId)
+      .single();
+
+    if (error) {
+      console.error("Failed to load profile", error);
+      setProfile(null);
+      setIsPro(false);
+    } else {
+      setProfile(data as Profile);
+      // Загружаем права доступа ОТДЕЛЬНО из user_access
+      // RLS автоматически фильтрует по auth.uid(), userId не нужен
+      const proAccess = await fetchUserAccess();
+      setIsPro(proAccess);
+    }
+    setProfileLoading(false);
+    setProfileReady(true);
+  };
+
+  useEffect(() => {
     let abort = false;
-    const fetchProfile = async () => {
-      setProfileLoading(true);
-      setProfileReady(false);
-      const { data, error } = await supabase.from("profiles").select("*").eq("id", userId).single();
-      if (!abort) {
-        if (error) {
-          console.error("Failed to load profile", error);
-        } else {
-          setProfile(data as Profile);
-        }
-        setProfileLoading(false);
-        setProfileReady(true);
-      }
+    const loadProfile = async () => {
+      await fetchProfile();
     };
-    fetchProfile();
+    if (userId) {
+      loadProfile();
+    } else {
+      setProfile(null);
+      setProfileLoading(false);
+      setProfileReady(true);
+    }
 
     return () => {
       abort = true;
     };
   }, [userId]);
 
+  const refreshProfile = async () => {
+    await fetchProfile();
+  };
+
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
     return error ?? null;
   };
 
@@ -122,16 +187,19 @@ export const AuthProvider = ({ children }: Props) => {
       profile,
       isAdmin:
         Boolean(profile?.is_admin) ||
-        Boolean(session?.user?.email && ADMIN_EMAILS.includes(session.user.email.toLowerCase())),
+        Boolean(
+          session?.user?.email &&
+            ADMIN_EMAILS.includes(session.user.email.toLowerCase())
+        ),
+      isPro,
       signIn,
       signUp,
       signOut,
       signInWithGoogle,
+      refreshProfile,
     }),
-    [loading, profileLoading, profileReady, session, profile],
+    [loading, profileLoading, profileReady, session, profile, isPro]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-

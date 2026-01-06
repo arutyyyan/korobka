@@ -22,14 +22,16 @@ const AuthRedirect = () => {
       location.pathname.startsWith("/learn") ||
       location.pathname.startsWith("/admin") ||
       location.pathname.startsWith("/profile") ||
-      location.pathname === "/courses";
+      location.pathname === "/courses" ||
+      location.pathname === "/onboarding";
 
     // Only redirect if on a public page
     if (isOnPublicPage && !isOnAuthPage) {
-      // Redirect based on admin status
+      // Redirect based on admin status and onboarding completion
       if (isAdmin) {
         navigate("/admin", { replace: true });
       } else {
+        // Check if onboarding is needed (will be handled by ProtectedRoute)
         navigate("/learn", { replace: true });
       }
     }

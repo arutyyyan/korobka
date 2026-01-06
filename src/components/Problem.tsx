@@ -40,13 +40,13 @@ const Problem = () => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid lg:grid-cols-2 gap-12 mb-16 items-stretch">
           {/* Problem Side */}
-          <div className="space-y-8">
-            <div className="relative">
+          <div className="space-y-8 h-full">
+            <div className="relative h-full">
               {/* Problem Card */}
               <div
-                className="rounded-3xl p-6 border border-red-100 relative overflow-hidden"
+                className="h-full rounded-3xl p-6 border border-red-100 relative overflow-hidden flex flex-col"
                 style={{
                   backgroundImage: "url('/problem_bg.webp')",
                   backgroundSize: "cover",
@@ -57,7 +57,7 @@ const Problem = () => {
                 {/* Overlay for better text readability */}
                 <div className="absolute inset-0 bg-white/20 rounded-3xl"></div>
 
-                <div className="relative z-10">
+                <div className="relative z-10 flex flex-col h-full">
                   <div className="flex items-start gap-4 mb-6 flex-col">
                     <div className="w-16 h-16 bg-[#EB6147] rounded-2xl flex items-center justify-center shadow-lg shadow-red-500/40">
                       <svg
@@ -86,7 +86,7 @@ const Problem = () => {
                   </div>
 
                   {/* Problem Examples */}
-                  <div className="mt-6 space-y-3">
+                  <div className="space-y-3">
                     {[
                       { text: "Смотришь TikTok про ChatGPT" },
                       { text: "Читаешь новости про ИИ" },

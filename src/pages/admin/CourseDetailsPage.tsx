@@ -1,78 +1,41 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { ChevronRight } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 
 import AdminLayout from "@/components/admin/AdminLayout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { supabase } from "@/lib/supabaseClient";
-import { COURSE_LEVEL_LABELS, formatDate } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { MarkdownEditor } from "@/components/admin/MarkdownEditor";
-import { uploadCourseCover } from "@/lib/storage";
-import { Upload, X, Loader2 } from "lucide-react";
+import { Form } from "@/components/ui/form";
+
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-
-const courseUpdateSchema = z.object({
-  title: z.string().min(3, "Минимум 3 символа"),
-  slug: z.string().min(3, "Минимум 3 символа").regex(/^[a-z0-9\-]+$/, "Только строчные буквы, цифры и дефис"),
-  subtitle: z.string().optional(),
-  description: z.string().optional(),
-  heroImageUrl: z.union([z.string().url("Укажите корректный URL"), z.literal("")]).optional(),
-  level: z.enum(["beginner", "intermediate", "advanced"]),
-  isPublished: z.boolean(),
-});
-
-const lessonCreateSchema = z.object({
-  title: z.string().min(1, "Название урока обязательно"),
-  videoUrl: z.union([z.string().url("Укажите корректный URL"), z.literal("")]).optional(),
-  contentMd: z.string().optional(),
-});
-
-type CourseFormValues = z.infer<typeof courseUpdateSchema>;
-type LessonFormValues = z.infer<typeof lessonCreateSchema>;
-
-type CourseDetails = {
-  id: string;
-  title: string;
-  slug: string;
-  subtitle: string | null;
-  description: string | null;
-  hero_image_url: string | null;
-  cover_image_url: string | null;
-  level: keyof typeof COURSE_LEVEL_LABELS | null;
-  is_published: boolean;
-  created_at: string | null;
-};
-
-type LessonSummary = {
-  id: string;
-  title: string;
-  order_index: number | null;
-  video_url: string | null;
-  created_at: string | null;
-};
+  courseUpdateSchema,
+  lessonCreateSchema,
+  type CourseFormValues,
+  type LessonFormValues,
+  type CourseDetails,
+  type LessonSummary,
+} from "./CourseDetailsPage.types";
+import {
+  CourseHeader,
+  CourseLessonsList,
+} from "./CourseDetailsPage.components";
+import { CourseBasicInfoForm } from "./CourseBasicInfoForm";
+import { CourseMarketingForm } from "./CourseMarketingForm";
+import { AddLessonDialog } from "./AddLessonDialog";
+import { uploadCourseCover } from "@/lib/storage";
 
 const fetchCourseDetails = async (courseId: string) => {
   const { data: course, error: courseError } = await supabase
     .from("courses")
-    .select("id,title,slug,subtitle,description,hero_image_url,cover_image_url,level,is_published,created_at")
+    .select(
+      "id,title,slug,subtitle,description,hero_image_url,cover_image_url,level,is_published,result,duration,difficulty,tools,skills,program,created_at"
+    )
     .eq("id", courseId)
     .single();
 
@@ -96,6 +59,14 @@ const fetchCourseDetails = async (courseId: string) => {
   };
 };
 
+const CourseDetailsSkeleton = () => (
+  <div className="space-y-4">
+    <Skeleton className="h-64 w-full rounded-2xl" />
+    <Skeleton className="h-40 w-full rounded-2xl" />
+    <Skeleton className="h-32 w-full rounded-2xl" />
+  </div>
+);
+
 const CourseDetailsPage = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
@@ -118,6 +89,12 @@ const CourseDetailsPage = () => {
       heroImageUrl: "",
       level: "beginner",
       isPublished: false,
+      result: "",
+      duration: "",
+      difficulty: undefined,
+      tools: [],
+      skills: [],
+      program: [],
     },
   });
 
@@ -127,17 +104,11 @@ const CourseDetailsPage = () => {
       title: "",
       videoUrl: "",
       contentMd: "",
+      durationMinutes: undefined,
     },
   });
 
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-    refetch,
-    isRefetching,
-  } = useQuery({
+  const { data, isLoading, isError, error, refetch, isRefetching } = useQuery({
     queryKey: ["admin-course", courseId],
     queryFn: () => fetchCourseDetails(courseId!),
     enabled: Boolean(courseId),
@@ -149,14 +120,20 @@ const CourseDetailsPage = () => {
         title="Курс не выбран"
         description="Выберите курс из списка, чтобы посмотреть детали."
         actions={
-          <Button variant="outline" size="sm" onClick={() => navigate("/admin/courses")}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigate("/admin/courses")}
+          >
             Все курсы
           </Button>
         }
       >
         <Alert>
           <AlertTitle>Нет курса</AlertTitle>
-          <AlertDescription>Пожалуйста, вернитесь к списку курсов и выберите нужный.</AlertDescription>
+          <AlertDescription>
+            Пожалуйста, вернитесь к списку курсов и выберите нужный.
+          </AlertDescription>
         </Alert>
       </AdminLayout>
     );
@@ -164,8 +141,8 @@ const CourseDetailsPage = () => {
 
   const course = data?.course ?? null;
   const lessons = data?.lessons ?? [];
-  const subtitle = course?.subtitle ?? course?.description ?? "Курс без описания";
-  const heroImage = course?.cover_image_url ?? course?.hero_image_url;
+  const subtitle =
+    course?.subtitle ?? course?.description ?? "Курс без описания";
   const lessonsCount = useMemo(() => lessons.length, [lessons]);
 
   useEffect(() => {
@@ -179,6 +156,15 @@ const CourseDetailsPage = () => {
         heroImageUrl: coverUrl,
         level: (course.level ?? "beginner") as CourseFormValues["level"],
         isPublished: Boolean(course.is_published),
+        result: course.result ?? "",
+        duration: course.duration ?? "",
+        difficulty:
+          course.difficulty !== null && course.difficulty !== undefined
+            ? Number(course.difficulty)
+            : undefined,
+        tools: course.tools ?? [],
+        skills: course.skills ?? [],
+        program: course.program ?? [],
       });
       setCoverPreview(coverUrl || null);
     }
@@ -195,12 +181,16 @@ const CourseDetailsPage = () => {
       courseForm.setValue("heroImageUrl", publicUrl);
       toast({
         title: "Обложка загружена",
-        description: "Обложка успешно загружена. Не забудьте сохранить изменения.",
+        description:
+          "Обложка успешно загружена. Не забудьте сохранить изменения.",
       });
     } catch (error) {
       toast({
         title: "Ошибка загрузки",
-        description: error instanceof Error ? error.message : "Не удалось загрузить обложку",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Не удалось загрузить обложку",
         variant: "destructive",
       });
     } finally {
@@ -208,12 +198,20 @@ const CourseDetailsPage = () => {
     }
   };
 
+  const handleCoverRemove = () => {
+    setCoverPreview(null);
+    courseForm.setValue("heroImageUrl", "");
+  };
+
   const handleCourseSubmit = async (values: CourseFormValues) => {
     if (!courseId) {
       return;
     }
     setSavingCourse(true);
-    const coverUrl = values.heroImageUrl && values.heroImageUrl.trim().length > 0 ? values.heroImageUrl.trim() : null;
+    const coverUrl =
+      values.heroImageUrl && values.heroImageUrl.trim().length > 0
+        ? values.heroImageUrl.trim()
+        : null;
     const payload = {
       title: values.title.trim(),
       slug: values.slug.trim(),
@@ -223,8 +221,17 @@ const CourseDetailsPage = () => {
       hero_image_url: coverUrl, // Keep for backward compatibility
       level: values.level,
       is_published: values.isPublished,
+      result: values.result?.trim() || null,
+      duration: values.duration?.trim() || null,
+      difficulty: values.difficulty || null,
+      tools: values.tools.filter((t) => t.trim().length > 0),
+      skills: values.skills.filter((s) => s.trim().length > 0),
+      program: values.program.filter((p) => p.trim().length > 0),
     };
-    const { error: updateError } = await supabase.from("courses").update(payload).eq("id", courseId);
+    const { error: updateError } = await supabase
+      .from("courses")
+      .update(payload)
+      .eq("id", courseId);
     setSavingCourse(false);
     if (updateError) {
       toast({
@@ -234,9 +241,14 @@ const CourseDetailsPage = () => {
       });
       return;
     }
-    toast({ title: "Курс обновлён", description: "Изменения успешно сохранены." });
+    toast({
+      title: "Курс обновлён",
+      description: "Изменения успешно сохранены.",
+    });
     void queryClient.invalidateQueries({ queryKey: ["admin-courses"] });
-    void queryClient.invalidateQueries({ queryKey: ["admin-course", courseId] });
+    void queryClient.invalidateQueries({
+      queryKey: ["admin-course", courseId],
+    });
     void refetch();
   };
 
@@ -252,34 +264,58 @@ const CourseDetailsPage = () => {
     setCreatingLesson(true);
     const nextOrder =
       lessons.length > 0
-        ? Math.max(...lessons.map((lesson) => (typeof lesson.order_index === "number" ? lesson.order_index : -1))) + 1
+        ? Math.max(
+            ...lessons.map((lesson) =>
+              typeof lesson.order_index === "number" ? lesson.order_index : -1
+            )
+          ) + 1
         : 0;
 
-    const { error: insertError } = await supabase.from("lessons").insert({
-      course_id: course.id,
-      title: values.title.trim(),
-      video_url: values.videoUrl && values.videoUrl.length > 0 ? values.videoUrl : null,
-      content_md: values.contentMd ?? null,
-      order_index: nextOrder,
-    });
+    const { data: newLesson, error: insertError } = await supabase
+      .from("lessons")
+      .insert({
+        course_id: course.id,
+        title: values.title.trim(),
+        video_url:
+          values.videoUrl && values.videoUrl.length > 0
+            ? values.videoUrl
+            : null,
+        content_md: values.contentMd ?? null,
+        duration_minutes: values.durationMinutes ?? null,
+        order_index: nextOrder,
+      })
+      .select("id")
+      .single();
+
     setCreatingLesson(false);
-    if (insertError) {
+    if (insertError || !newLesson) {
       toast({
         title: "Не удалось добавить урок",
-        description: insertError.message,
+        description: insertError?.message || "Попробуйте снова",
         variant: "destructive",
       });
       return;
     }
-    toast({ title: "Урок добавлен", description: "Новый урок появился в списке." });
+
+    toast({
+      title: "Урок добавлен",
+      description: "Новый урок появился в списке.",
+    });
+
     lessonForm.reset({
       title: "",
       videoUrl: "",
       contentMd: "",
+      durationMinutes: undefined,
     });
-    setIsAddLessonDialogOpen(false);
-    void queryClient.invalidateQueries({ queryKey: ["admin-course", courseId] });
+
+    void queryClient.invalidateQueries({
+      queryKey: ["admin-course", courseId],
+    });
     void refetch();
+
+    // Return lesson ID for file upload
+    return newLesson.id;
   };
 
   return (
@@ -288,7 +324,6 @@ const CourseDetailsPage = () => {
       description={subtitle}
       actions={
         <div className="flex flex-wrap gap-2">
- 
           <Button size="sm" onClick={() => navigate("/admin/courses/new")}>
             Создать курс
           </Button>
@@ -300,7 +335,9 @@ const CourseDetailsPage = () => {
           <Alert variant="destructive">
             <AlertTitle>Не удалось загрузить курс</AlertTitle>
             <AlertDescription>
-              {error instanceof Error ? error.message : "Попробуйте обновить страницу немного позже."}
+              {error instanceof Error
+                ? error.message
+                : "Попробуйте обновить страницу немного позже."}
             </AlertDescription>
           </Alert>
         ) : null}
@@ -310,196 +347,25 @@ const CourseDetailsPage = () => {
         ) : course ? (
           <>
             <section className="rounded-2xl border bg-background p-6 shadow-sm space-y-6">
-              {/* Status badges - more compact */}
-              <div className="flex flex-wrap items-center gap-2 pb-4 border-b">
-                <Badge
-                  className={
-                    course.is_published
-                      ? "border-0 bg-emerald-100 text-emerald-700"
-                      : "border-0 bg-amber-100 text-amber-700"
-                  }
-                >
-                  {course.is_published ? "Опубликован" : "Черновик"}
-                </Badge>
-                {course.level && <Badge variant="secondary">{COURSE_LEVEL_LABELS[course.level]}</Badge>}
-                <Badge variant="outline" className="font-mono text-xs">Slug: {course.slug}</Badge>
-                <div className="ml-auto text-xs text-muted-foreground">
-                  Создан {formatDate(course.created_at)} • {lessonsCount} уроков
-                </div>
-              </div>
+              <CourseHeader course={course} lessonsCount={lessonsCount} />
 
               <Form {...courseForm}>
-                <form onSubmit={courseForm.handleSubmit(handleCourseSubmit)} className="space-y-4">
-                  {/* Basic Info - Compact Grid */}
-                  <div className="grid gap-4 md:grid-cols-3">
-                    <FormField
-                      control={courseForm.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem className="md:col-span-2">
-                          <FormLabel>Название курса</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Вводный курс по AI" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={courseForm.control}
-                      name="slug"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Slug</FormLabel>
-                          <FormControl>
-                            <Input placeholder="ai-intro" {...field} className="font-mono text-sm" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <FormField
-                      control={courseForm.control}
-                      name="subtitle"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Подзаголовок</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Короткое описание" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={courseForm.control}
-                      name="level"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Уровень</FormLabel>
-                          <FormControl>
-                            <select
-                              className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
-                              {...field}
-                            >
-                              <option value="beginner">Начальный</option>
-                              <option value="intermediate">Средний</option>
-                              <option value="advanced">Продвинутый</option>
-                            </select>
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-
-                  <FormField
+                <form
+                  onSubmit={courseForm.handleSubmit(handleCourseSubmit)}
+                  className="space-y-4"
+                >
+                  <CourseBasicInfoForm
                     control={courseForm.control}
-                    name="description"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Описание</FormLabel>
-                        <FormControl>
-                          <Textarea rows={3} placeholder="Расскажите подробнее о программе..." {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    coverPreview={coverPreview}
+                    uploadingCover={uploadingCover}
+                    onCoverUpload={handleCoverUpload}
+                    onCoverRemove={handleCoverRemove}
                   />
 
-                  {/* Cover Image - Simplified */}
-                  <FormField
-                    control={courseForm.control}
-                    name="heroImageUrl"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Обложка курса</FormLabel>
-                        <FormControl>
-                          <div className="space-y-3">
-                            <div className="flex gap-2">
-                              <label
-                                htmlFor="cover-upload"
-                                className="flex items-center justify-center gap-2 px-3 py-2 text-sm border border-input rounded-md bg-background hover:bg-accent cursor-pointer transition-colors disabled:opacity-50"
-                              >
-                                {uploadingCover ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                  <Upload className="h-4 w-4" />
-                                )}
-                                {uploadingCover ? "Загрузка..." : "Загрузить"}
-                              </label>
-                              <Input
-                                id="cover-upload"
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                disabled={uploadingCover}
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) handleCoverUpload(file);
-                                }}
-                              />
-                              <Input
-                                placeholder="Или вставьте URL изображения"
-                                {...field}
-                                className="flex-1 text-sm"
-                              />
-                            </div>
-                            {coverPreview && (
-                              <div className="relative rounded-md border overflow-hidden">
-                                <img
-                                  src={coverPreview}
-                                  alt="Preview"
-                                  className="w-full h-32 object-cover"
-                                />
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setCoverPreview(null);
-                                    field.onChange("");
-                                  }}
-                                  className="absolute top-2 right-2 p-1.5 bg-background/90 hover:bg-background rounded border shadow-sm"
-                                >
-                                  <X className="h-3.5 w-3.5" />
-                                </button>
-                              </div>
-                            )}
-                          </div>
-                        </FormControl>
-                        <FormMessage />
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Рекомендуемый размер: 1200x630px
-                        </p>
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Publish Toggle - Inline */}
-                  <div className="flex items-center justify-between pt-2 border-t">
-                    <div>
-                      <FormLabel className="text-base">Публикация</FormLabel>
-                      <p className="text-xs text-muted-foreground mt-0.5">
-                        Сделайте курс доступным студентам
-                      </p>
-                    </div>
-                    <FormField
-                      control={courseForm.control}
-                      name="isPublished"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Switch checked={field.value} onCheckedChange={field.onChange} />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <CourseMarketingForm control={courseForm.control} />
 
                   {/* Save Button */}
-                  <div className="flex justify-end pt-2">
+                  <div className="flex justify-end pt-4 border-t">
                     <Button type="submit" disabled={savingCourse} size="sm">
                       {savingCourse ? (
                         <>
@@ -543,118 +409,23 @@ const CourseDetailsPage = () => {
                 </div>
               </div>
 
-              {lessonsCount > 0 ? (
-                <ol className="space-y-2">
-                  {lessons.map((lesson, index) => {
-                    const order = (lesson.order_index ?? index) + 1;
-                    return (
-                      <li key={lesson.id}>
-                        <button
-                          type="button"
-                          onClick={() => navigate(`/admin/courses/${course.id}/lessons/${lesson.id}`)}
-                          className="flex w-full items-center justify-between rounded-xl border px-4 py-3 text-left transition hover:border-primary hover:bg-muted/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                        >
-                          <div className="flex items-center gap-4">
-                            <span className="text-sm font-medium text-muted-foreground">{order.toString().padStart(2, "0")}</span>
-                            <div>
-                              <p className="font-medium">{lesson.title}</p>
-                              <p className="text-xs text-muted-foreground">
-                                Создан {formatDate(lesson.created_at)}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            {lesson.video_url ? <Badge variant="outline">Видео</Badge> : null}
-                            <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                          </div>
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ol>
-              ) : (
-                <div className="rounded-xl border border-dashed p-6 text-center text-sm text-muted-foreground">
-                  Уроков пока нет. Нажмите кнопку "Добавить урок", чтобы создать первый.
-                </div>
-              )}
+              <CourseLessonsList course={course} lessons={lessons} />
             </section>
 
-            {/* Add Lesson Dialog */}
-            <Dialog open={isAddLessonDialogOpen} onOpenChange={setIsAddLessonDialogOpen}>
-              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-                <DialogHeader>
-                  <DialogTitle>Добавить урок</DialogTitle>
-                  <DialogDescription>
-                    Заполните форму и урок появится в списке ниже.
-                  </DialogDescription>
-                </DialogHeader>
-                <Form {...lessonForm}>
-                  <form onSubmit={lessonForm.handleSubmit(handleLessonSubmit)} className="space-y-4">
-                    <FormField
-                      control={lessonForm.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Название</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Например, Модуль 1. Введение" {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={lessonForm.control}
-                      name="videoUrl"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Видео (Kinescope или YouTube)</FormLabel>
-                          <FormControl>
-                            <Input placeholder="https://kinescope.io/..." {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={lessonForm.control}
-                      name="contentMd"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Текст (Markdown)</FormLabel>
-                          <FormControl>
-                            <MarkdownEditor
-                              value={field.value ?? ""}
-                              onChange={(val) => field.onChange(val ?? "")}
-                              placeholder="Конспект, ссылки, задания..."
-                              height={260}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <div className="flex justify-end gap-3 pt-4">
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => setIsAddLessonDialogOpen(false)}
-                      >
-                        Отмена
-                      </Button>
-                      <Button type="submit" disabled={creatingLesson}>
-                        {creatingLesson ? "Добавляем..." : "Добавить урок"}
-                      </Button>
-                    </div>
-                  </form>
-                </Form>
-              </DialogContent>
-            </Dialog>
+            <AddLessonDialog
+              open={isAddLessonDialogOpen}
+              onOpenChange={setIsAddLessonDialogOpen}
+              form={lessonForm}
+              onSubmit={handleLessonSubmit}
+              submitting={creatingLesson}
+            />
           </>
         ) : (
           <Alert>
             <AlertTitle>Курс не найден</AlertTitle>
-            <AlertDescription>Возможно, курс был удалён. Вернитесь к списку и попробуйте снова.</AlertDescription>
+            <AlertDescription>
+              Возможно, курс был удалён. Вернитесь к списку и попробуйте снова.
+            </AlertDescription>
           </Alert>
         )}
       </div>
@@ -662,14 +433,4 @@ const CourseDetailsPage = () => {
   );
 };
 
-const CourseDetailsSkeleton = () => (
-  <div className="space-y-4">
-    <Skeleton className="h-64 w-full rounded-2xl" />
-    <Skeleton className="h-40 w-full rounded-2xl" />
-    <Skeleton className="h-32 w-full rounded-2xl" />
-  </div>
-);
-
 export default CourseDetailsPage;
-
-

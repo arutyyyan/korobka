@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
 
 type Props = {
@@ -6,7 +6,8 @@ type Props = {
 };
 
 const ProtectedRoute = ({ children }: Props) => {
-  const { user, loading } = useAuth();
+  const { user, loading, profile } = useAuth();
+  const location = useLocation();
 
   if (loading) {
     return (
@@ -21,6 +22,14 @@ const ProtectedRoute = ({ children }: Props) => {
 
   if (!user) {
     return <Navigate to="/" replace />;
+  }
+
+  // Redirect to onboarding if not completed
+  if (profile && !profile.onboarding_completed && location.pathname !== "/onboarding") {
+    // Allow access to /onboarding, but redirect /learn to onboarding
+    if (location.pathname.startsWith("/learn")) {
+      return <Navigate to="/onboarding" replace />;
+    }
   }
 
   return <>{children}</>;
