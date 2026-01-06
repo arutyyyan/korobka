@@ -24,7 +24,6 @@ const navItems: NavItem[] = [
   { label: "Курсы", type: "section", id: "courses" },
   { label: "Цены", type: "section", id: "pricing" },
   { label: "FAQ", type: "section", id: "faq" },
-  { label: "Поддержка", type: "route", path: "/refund" },
 ];
 
 const Header = () => {
