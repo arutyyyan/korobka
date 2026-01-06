@@ -1,53 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { getBotUrl } from "@/lib/utils";
-import { useState } from "react";
-import saleImage from "@/assets/30sale.webp";
+import AuthButton from "@/components/Auth/AuthButton";
 import blueBoxIcon from "@/assets/blue_box_icon.webp";
 
-interface LessonTopic {
-  id: string;
-  title: string;
-  videoId: string;
-  description: string;
-}
-
-const lessonTopics: LessonTopic[] = [
-  {
-    id: "chatgpt",
-    title: "ChatGPT",
-    videoId: "AGF1k0tqitc",
-    description: "Основы работы с ChatGPT для контента",
-  },
-  {
-    id: "ai-avatars",
-    title: "ИИ-аватары",
-    videoId: "g7TGE3xaf7Y",
-    description: "Создание аватаров с помощью ИИ",
-  },
-  {
-    id: "lovable",
-    title: "Lovable",
-    videoId: "OIRrBDkbn9Q",
-    description: "Разработка с помощью Lovable",
-  },
-  {
-    id: "cursor",
-    title: "Cursor",
-    videoId: "DuveCRW1CCw",
-    description: "Работа с Cursor для разработки",
-  },
-  {
-    id: "make",
-    title: "Make автоматизация",
-    videoId: "sCjRh4G1vDI",
-    description: "Автоматизация процессов с Make",
-  },
-];
-
 const Hero = () => {
-  const [selectedTopic, setSelectedTopic] = useState<LessonTopic>(
-    lessonTopics[0]
-  );
 
   const handleClick = () => {
     window.open(getBotUrl(), "_blank");
@@ -91,48 +47,22 @@ const Hero = () => {
             AI-инструментам
           </p>
 
-          {/* Free Lesson Section with Tabs */}
-          <div className="relative max-w-5xl mx-auto mb-16">
-            {/* Tabs - Horizontal scroll on mobile */}
-            <div className="mb-6 overflow-x-auto scrollbar-hide">
-              <div className="flex gap-2 sm:gap-3 min-w-max sm:min-w-0 sm:flex-wrap sm:justify-center pb-2">
-                {lessonTopics.map((topic) => (
-                  <button
-                    key={topic.id}
-                    onClick={() => setSelectedTopic(topic)}
-                    className={`flex-shrink-0 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-sm sm:text-base transition-all duration-200 whitespace-nowrap ${
-                      selectedTopic.id === topic.id
-                        ? "bg-primary text-white shadow-lg shadow-primary/30"
-                        : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
-                    }`}
-                  >
-                    {topic.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Video Player */}
-            <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-200">
-              <div className="aspect-video bg-black rounded-xl overflow-hidden">
-                <iframe
-                  src={`https://www.youtube.com/embed/${selectedTopic.videoId}`}
-                  title={selectedTopic.title}
-                  className="w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-              <div className="mt-3 px-2">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                  {selectedTopic.title}
-                </h3>
-                <p className="text-sm text-gray-600">
-                  {selectedTopic.description}
-                </p>
-              </div>
-            </div>
+          {/* Auth Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <AuthButton
+              initialMode="signup"
+              size="lg"
+              variant="default"
+              showIcon={false}
+              className="bg-primary text-white hover:bg-primary/90 text-lg px-6 py-3 h-auto min-w-[200px] font-semibold rounded-xl"
+            />
+            <AuthButton
+              initialMode="signin"
+              size="lg"
+              variant="outline"
+              showIcon={false}
+              className="border-2 border-primary text-primary hover:bg-primary hover:text-white text-lg px-6 py-3 h-auto min-w-[200px] font-semibold rounded-xl"
+            />
           </div>
 
           {/* Call to Action Block */}

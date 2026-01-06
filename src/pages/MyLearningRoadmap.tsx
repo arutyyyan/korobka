@@ -115,14 +115,14 @@ const MyLearningRoadmap = () => {
 
   return (
     <div className="flex-1 flex flex-col min-h-0">
-      <div className="flex-1 overflow-y-auto p-6">
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
         <div className="space-y-6 max-w-4xl mx-auto">
           <div className="space-y-2">
             <Badge variant="outline" className="w-fit">
               Мой роадмап
             </Badge>
-            <h1 className="text-4xl font-bold">Ваш путь обучения</h1>
-            <p className="text-muted-foreground text-lg">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">Ваш путь обучения</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">
               Персональный план курсов на основе ваших целей и уровня
             </p>
           </div>
@@ -140,16 +140,16 @@ const MyLearningRoadmap = () => {
               return (
                 <Card key={step.groupId} className="overflow-hidden">
                   <CardHeader
-                    className="cursor-pointer hover:bg-muted/50 transition-colors"
+                    className="cursor-pointer hover:bg-muted/50 transition-colors p-4 sm:p-6"
                     onClick={() => toggleGroup(step.groupId)}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1">
+                    <div className="flex items-start justify-between gap-2 sm:gap-4">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-start gap-2">
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-6 w-6 mt-0.5"
+                            className="h-6 w-6 mt-0.5 flex-shrink-0"
                             onClick={(e) => {
                               e.stopPropagation();
                               toggleGroup(step.groupId);
@@ -162,9 +162,9 @@ const MyLearningRoadmap = () => {
                                 <ChevronRight className="h-4 w-4" />
                               ))}
                           </Button>
-                          <div className="flex-1 flex flex-col  gap-1">
-                            <div className="flex items-center justify-between">
-                              <CardTitle className="text-2xl text-[#111827] underline-offset-4 hover:underline">
+                          <div className="flex-1 flex flex-col gap-1 min-w-0">
+                            <div className="flex items-start sm:items-center justify-between gap-2 flex-wrap">
+                              <CardTitle className="text-lg sm:text-xl md:text-2xl text-[#111827] underline-offset-4 hover:underline break-words">
                                 Шаг {index + 1}: {step.title}
                               </CardTitle>
 
@@ -177,6 +177,7 @@ const MyLearningRoadmap = () => {
                                       ? "secondary"
                                       : "outline"
                                   }
+                                  className="flex-shrink-0"
                                 >
                                   {status === "completed" && "Завершён"}
                                   {status === "current" && "Текущий"}
@@ -185,14 +186,14 @@ const MyLearningRoadmap = () => {
                                 </Badge>
                               )}
                             </div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2">
                               {step.outcome && (
-                                <CardTitle className="text-base text-muted-foreground">
+                                <CardTitle className="text-sm sm:text-base text-muted-foreground break-words">
                                   Результат: {step.outcome}
                                 </CardTitle>
                               )}
                               {step.progress.total > 0 && (
-                                <span className="text-sm text-muted-foreground">
+                                <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
                                   Прогресс: {step.progress.completed} /{" "}
                                   {step.progress.total}
                                 </span>
@@ -205,13 +206,13 @@ const MyLearningRoadmap = () => {
                   </CardHeader>
 
                   {isExpanded && (
-                    <CardContent className="pt-0">
+                    <CardContent className="pt-0 p-4 sm:p-6">
                       {step.courses.length === 0 ? (
-                        <p className="text-muted-foreground text-sm pl-8">
+                        <p className="text-muted-foreground text-sm pl-6 sm:pl-8">
                           Курсы в этой группе пока не добавлены
                         </p>
                       ) : (
-                        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 pl-8">
+                        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 pl-0 sm:pl-8">
                           {step.courses.map((courseItem) => {
                             const course = coursesMap.get(courseItem.slug);
                             if (!course) {
@@ -221,7 +222,7 @@ const MyLearningRoadmap = () => {
                                   className="animate-pulse"
                                 >
                                   <div className="aspect-video bg-muted" />
-                                  <CardContent className="p-4 space-y-2">
+                                  <CardContent className="p-3 sm:p-4 space-y-2">
                                     <div className="h-4 bg-muted rounded w-3/4" />
                                     <div className="h-3 bg-muted rounded w-1/2" />
                                   </CardContent>
@@ -256,17 +257,17 @@ const MyLearningRoadmap = () => {
                                       )}
                                     </div>
                                   </div>
-                                  <CardContent className="p-4 space-y-2">
+                                  <CardContent className="p-3 sm:p-4 space-y-2">
                                     {course.subtitle && (
                                       <p className="text-xs text-muted-foreground uppercase tracking-wide">
                                         {course.subtitle}
                                       </p>
                                     )}
-                                    <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">
+                                    <h3 className="font-semibold text-base sm:text-lg group-hover:text-primary transition-colors break-words">
                                       {course.title}
                                     </h3>
                                     {course.description && (
-                                      <p className="text-sm text-muted-foreground line-clamp-2">
+                                      <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">
                                         {course.description}
                                       </p>
                                     )}
@@ -280,26 +281,26 @@ const MyLearningRoadmap = () => {
                                             ? "default"
                                             : "default"
                                         }
-                                        className="w-full"
+                                        className="w-full text-sm"
                                         size="sm"
                                       >
                                         {courseItem.status === "completed" && (
                                           <>
-                                            <CheckCircle2 className="h-4 w-4 mr-2" />
+                                            <CheckCircle2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                                             Завершён
                                           </>
                                         )}
                                         {courseItem.status ===
                                           "in_progress" && (
                                           <>
-                                            <PlayCircle className="h-4 w-4 mr-2" />
+                                            <PlayCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                                             Продолжить
                                           </>
                                         )}
                                         {courseItem.status ===
                                           "not_started" && (
                                           <>
-                                            <PlayCircle className="h-4 w-4 mr-2" />
+                                            <PlayCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-1.5 sm:mr-2" />
                                             Начать
                                           </>
                                         )}

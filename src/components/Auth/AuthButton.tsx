@@ -57,6 +57,8 @@ type Props = {
   size?: ButtonProps["size"];
   className?: string;
   fullWidth?: boolean;
+  initialMode?: Mode;
+  showIcon?: boolean;
 };
 
 const GoogleIcon = () => (
@@ -86,6 +88,8 @@ const AuthButton = ({
   variant = "outline",
   size = "sm",
   fullWidth,
+  initialMode = "signin",
+  showIcon = true,
 }: Props) => {
   const { toast } = useToast();
   const {
@@ -101,7 +105,7 @@ const AuthButton = ({
   } = useAuth();
   const navigate = useNavigate();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [mode, setMode] = useState<Mode>("signin");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [submitting, setSubmitting] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
@@ -228,21 +232,28 @@ const AuthButton = ({
     );
   }
 
+  // Reset mode when dialog opens
+  useEffect(() => {
+    if (dialogOpen) {
+      setMode(initialMode);
+    }
+  }, [dialogOpen, initialMode]);
+
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button
           variant={variant}
           size={size}
-          className={cn("gap-2", fullWidth && "w-full", className)}
+          className={cn(showIcon && "gap-2", fullWidth && "w-full", className)}
           disabled={loading}
         >
           {loading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
+          ) : showIcon ? (
             <LogIn className="h-4 w-4" />
-          )}
-          Войти
+          ) : null}
+          {initialMode === "signup" ? "Создать аккаунт" : "Войти"}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-md">
