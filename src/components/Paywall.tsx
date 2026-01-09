@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MessageSquare, Lock } from "lucide-react";
-import { generateTelegramLinkTokenWithPath, getTelegramLinkUrl } from "@/api/telegram";
+import { generateTelegramLinkToken, getTelegramLinkUrl } from "@/api/telegram";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -11,27 +11,26 @@ type PaywallProps = {
   lessonTitle?: string;
 };
 
-export const Paywall = ({ courseId, lessonId, courseTitle, lessonTitle }: PaywallProps) => {
+export const Paywall = ({
+  courseId,
+  lessonId,
+  courseTitle,
+  lessonTitle,
+}: PaywallProps) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
 
   const handleSubscribe = async () => {
     setLoading(true);
     try {
-      // Get current path with search params
-      const originPath = window.location.pathname + window.location.search;
-      const token = await generateTelegramLinkTokenWithPath(originPath);
+      const token = await generateTelegramLinkToken();
       const telegramUrl = getTelegramLinkUrl(token);
-      window.open(telegramUrl, "_blank", "noopener,noreferrer");
-      toast({
-        title: "Откройте Telegram",
-        description: "В Telegram нажмите Start, чтобы привязать аккаунт и оплатить.",
-      });
+
+      window.location.href = telegramUrl;
     } catch (error) {
-      console.error("Failed to generate Telegram link", error);
       toast({
         title: "Ошибка",
-        description: error instanceof Error ? error.message : "Не удалось создать ссылку для подключения",
+        description: "Не удалось открыть Telegram",
         variant: "destructive",
       });
     } finally {
@@ -45,9 +44,11 @@ export const Paywall = ({ courseId, lessonId, courseTitle, lessonTitle }: Paywal
         <div className="mx-auto h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
           <Lock className="h-8 w-8 text-primary" />
         </div>
-        
+
         <div className="space-y-2">
-          <h3 className="text-2xl font-bold text-foreground">Доступ по подписке</h3>
+          <h3 className="text-2xl font-bold text-foreground">
+            Доступ по подписке
+          </h3>
           <p className="text-muted-foreground">
             Смотрите первый урок бесплатно. Остальные — по подписке.
           </p>
@@ -71,4 +72,3 @@ export const Paywall = ({ courseId, lessonId, courseTitle, lessonTitle }: Paywal
     </div>
   );
 };
-

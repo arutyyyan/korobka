@@ -53,27 +53,28 @@ const PlatformHeader = () => {
 
     setTelegramDialogOpen(false);
     setConnectingTelegram(true);
+
     try {
       const token = await generateTelegramLinkToken();
       const telegramUrl = getTelegramLinkUrl(token);
-      window.open(telegramUrl, "_blank", "noopener,noreferrer");
 
-      // Poll for profile update after a short delay
-      setTimeout(() => {
-        let attempts = 0;
-        const maxAttempts = 15; // Try for 30 seconds (15 attempts * 2 seconds)
-        const pollInterval = 2000; // 2 seconds
+      window.location.href = telegramUrl;
 
-        const poll = setInterval(async () => {
-          attempts++;
-          await refreshProfile();
+      let attempts = 0;
+      const maxAttempts = 15;
+      const pollInterval = 2000;
 
-          if (attempts >= maxAttempts) {
-            clearInterval(poll);
-          }
-        }, pollInterval);
-      }, 3000); // Start polling 3 seconds after opening Telegram
+      const poll = setInterval(async () => {
+        attempts++;
+        await refreshProfile();
+
+        if (attempts >= maxAttempts) {
+          clearInterval(poll);
+          setConnectingTelegram(false);
+        }
+      }, pollInterval);
     } catch (error) {
+      setConnectingTelegram(false);
       console.error("Failed to generate Telegram link", error);
       toast({
         title: "Ошибка",
@@ -83,8 +84,6 @@ const PlatformHeader = () => {
             : "Не удалось создать ссылку для подключения",
         variant: "destructive",
       });
-    } finally {
-      setConnectingTelegram(false);
     }
   };
 
